@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\PostCategory;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -42,7 +44,14 @@ class PostController extends Controller
         'public_post' => 'required|boolean',
         'author_id'=>'required|string',
        ]);
-       Post::create($data);
+       $id=Post::create($data)->id;
+       $category_list=$request->input('category_list');
+       array_map(function(string $v) use($id){
+        $post_category=new PostCategory;
+        $post_category->post_id=$id;
+        $post_category->category_id=(int)$v;
+        $post_category->save();
+       },$category_list);
        return redirect()->route('posts.index');
     }
 
@@ -65,8 +74,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-
-        return view('posts.edit',compact('post'));
+       $allCatg= Category::all();
+       $selectedCatg = $post->categories->map(function ($catg) {
+            return $catg->only(['id']);
+        })->toArray();
+        return view('posts.edit',compact('post','allCatg','selectedCatg'));
     }
 
     /**
@@ -85,6 +97,15 @@ class PostController extends Controller
         $post->title =$request->input('title');
         $post->content=$request->input('content');
         $post->save();
+        $id=$post->id;
+        $category_list=$request->input('category_list');
+        $pc=PostCategory::where('post_id',$id)->delete();
+        array_map(function(string $v) use($id){
+         $post_category=new PostCategory;
+         $post_category->post_id=$id;
+         $post_category->category_id=(int)$v;
+         $post_category->save();
+        },$category_list);
         return redirect()->route('posts.index');
     }
 
