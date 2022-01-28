@@ -17,10 +17,10 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->string('author_id')->default('001');
             $table->boolean('public_post')->default(true);
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
+            $table->foreignId('author_id')->constrained('users')->cascadeOnDelete();
         });
     }
 
