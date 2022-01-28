@@ -18,7 +18,14 @@
         <input type="hidden" name="public_post" value=1 class="form-control mb-3">
         <input type="hidden" name="author_id" class="form-control mb-3" value={{ Auth::id() }}>
 
-        <input class="form-check-input" type="checkbox" value="1" name="category_list[]">
+        @foreach ($categories as $tag)
+            <input class="form-check-input" type="checkbox" value="{{ $tag->id }}" name="category_list[]">
+            <label class="form-check-label">
+                {{ $tag->name }}
+            </label>
+        @endforeach
+
+        {{-- <input class="form-check-input" type="checkbox" value="1" name="category_list[]">
         <label class="form-check-label">
             Health
         </label>
@@ -33,7 +40,7 @@
         <input class="form-check-input" type="checkbox" value="4" name="category_list[]">
         <label class="form-check-label">
             photography
-        </label>
+        </label> --}}
         <button class="btn btn-primary float-end px-5">Submit</button>
     </form>
 @endsection
