@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -54,9 +55,13 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        $allCatg = Category::all();
-        $selectedCatg = $post->categories->pluck('id')->toArray();
-        return view('posts.edit', compact('post', 'allCatg', 'selectedCatg'));
+        if ($post->author_id === Auth::id()) {
+            $allCatg = Category::all();
+            $selectedCatg = $post->categories->pluck('id')->toArray();
+            return view('posts.edit', compact('post', 'allCatg', 'selectedCatg'));
+        } else {
+            return redirect()->route('posts.index');
+        }
     }
 
     public function update(Request $request, Post $post)
