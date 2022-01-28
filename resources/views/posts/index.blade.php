@@ -21,8 +21,8 @@
                     @endif
 
                     @foreach ($post->categories as $tag)
-                        <span class="bg-secondary"
-                            style="color: #fff;padding:5px;border-radius:6px;font-size:9px">{{ $tag->name }}</span>
+                        <a href="/categories/{{ $tag->id }}" class="bg-secondary"
+                            style="color: #fff;padding:5px;border-radius:6px;font-size:9px;text-decoration:none">{{ $tag->name }}</a>
                     @endforeach
                     <hr>
                     <p class="card-text" style="margin-bottom: 50px">{{ $post->content }}</p>
