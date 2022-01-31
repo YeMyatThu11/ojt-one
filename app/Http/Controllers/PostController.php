@@ -17,7 +17,12 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(12);
+        if (Auth::id()) {
+            $posts = Post::where('public_post', 1)->orWhere('author_id', Auth::id())->orderBy('created_at', 'desc')->paginate(12);
+        } else {
+            $posts = Post::where('public_post', 1)->orderBy('created_at', 'desc')->paginate(12);
+        }
+
         return view('posts.index', compact('posts'));
     }
 
@@ -69,6 +74,7 @@ class PostController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'content' => 'required|string',
+            'public_post' => 'required|boolean',
         ]);
         $post->update($data);
         $id = $post->id;

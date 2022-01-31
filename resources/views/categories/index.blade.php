@@ -6,10 +6,11 @@
             <div class="catg-container bg-secondary d-flex">
                 <p>{{ $category->name }}</p>
                 <div class="action-btn">
-                    <a href="/categories/{{ $category->id }}/edit"
+                    <a href="{{ route('categories.edit', $category->id) }}"
                         style="text-decoration: none;color:#fff;padding:3px 6px">
                         <i class="fas fa-edit" style="color:#fff"></i></a>
-                    <a href="/categories/{{ $category->id }}" style="text-decoration: none;color:#fff;padding:3px 6px">
+                    <a href="{{ route('categories.show', $category->id) }}"
+                        style="text-decoration: none;color:#fff;padding:3px 6px">
                         <i class="fas fa-info-circle" style="color:#fff"></i></a>
                     <form style="padding:3px 6px;margin:0;" action="{{ route('categories.destroy', $category->id) }}"
                         method="post">
@@ -22,6 +23,9 @@
                 </div>
             </div>
         @endforeach
+        <a href="{{ route('categories.create') }}" class="bg-secondary"
+            style="text-decoration: none;padding: 10px;margin:5px;border-radius: 20px;color:#fff;">Add New Post <i
+                class="fas fa-plus-circle" style="color:#fff;padding-left:5px"></i></a>
     </div>
 @endsection
 

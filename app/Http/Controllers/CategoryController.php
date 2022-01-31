@@ -40,7 +40,7 @@ class CategoryController extends Controller
             'name' => 'required|string',
         ]);
         Category::create($data);
-        return redirect()->route('posts.create');
+        return view('posts.create');
     }
 
     /**

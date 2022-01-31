@@ -11,7 +11,7 @@
                         @if ($post->user->id === Auth::id())
                             <div style="display:flex;position: absolute;right:6px;top:6px">
                                 <a style="text-decoration: none;color:#fff;padding:3px"
-                                    href="/posts/{{ $post->id }}/edit">
+                                    href="{{ route('categories.edit', $category->id) }}">
                                     <i class="fas fa-edit" style="color: rgb(151, 150, 150)"></i></a>
                                 <form style="padding:3px" action="{{ route('posts.destroy', $post->id) }}" method="post">
                                     @csrf
@@ -25,7 +25,7 @@
                         @endif
 
                         @foreach ($post->categories as $tag)
-                            <a href="/categories/{{ $tag->id }}" class="bg-secondary"
+                            <a href="{{ route('categories.show', $tag->id) }}" class="bg-secondary"
                                 style="color: #fff;padding:5px;border-radius:6px;font-size:9px;text-decoration:none">{{ $tag->name }}</a>
                         @endforeach
                         <hr>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <h1 class="mt-2">Category Create</h1>
+    <h1 class="mt-2">Category Edit</h1>
     <hr>
     @if ($errors->any())
         <div>
@@ -11,7 +11,7 @@
             </ul>
         </div>
     @endif
-    <form action="/categories/{{ $category->id }}" method="post">
+    <form action="{{ route('categories.update', $category->id) }}" method="post">
         @csrf
         @method('put')
         <input type="text" name="name" value="{{ $category->name }}" class="form-control mb-3" placeholder="Enter Name">
