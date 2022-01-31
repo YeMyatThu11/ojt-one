@@ -40,7 +40,7 @@ class CategoryController extends Controller
             'name' => 'required|string',
         ]);
         Category::create($data);
-        return view('posts.create');
+        return redirect('/categories/create')->with('status', 'Category Created!');
     }
 
     /**

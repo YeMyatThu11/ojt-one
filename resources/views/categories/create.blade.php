@@ -11,6 +11,11 @@
             </ul>
         </div>
     @endif
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <form action="{{ route('categories.store') }}" method="post">
         @csrf
         <input type="text" name="name" class="form-control mb-3" placeholder="Enter Name">

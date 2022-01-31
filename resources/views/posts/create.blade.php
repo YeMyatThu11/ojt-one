@@ -30,7 +30,7 @@
         @endforeach
         <a href="{{ route('categories.create') }}"><i class="fas fa-plus"
                 style="margin-left:10px;background: rgb(151, 150, 150);color:#fff;width:25px;height:25px;border-radius:50%;
-                                                                                                                                                                            padding: 5px 0px 0px 6px;"></i></a>
+                                                                                                                                                                                    padding: 5px 0px 0px 6px;"></i></a>
         <button class="btn btn-secondary float-end px-5">Submit</button>
     </form>
 @endsection

@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'web'])->group(function () {
     Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
     Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
