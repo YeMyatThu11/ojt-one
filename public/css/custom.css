@@ -1,0 +1,159 @@
+/*posts.index*/
+.action-btn-wrapper {
+    display: flex;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+}
+
+.action-btn {
+    text-decoration: none;
+    color: #fff;
+    padding: 3px
+}
+
+.edit-icon,
+.del-icon {
+    color: rgb(151, 150, 150)
+}
+
+.action-del-btn {
+    background: #fff !important;
+    border: 0;
+    padding: 0
+}
+
+.tag {
+    color: #fff;
+    padding: 5px;
+    border-radius: 6px;
+    font-size: 9px;
+    text-decoration: none;
+}
+
+.tag:hover,
+.catg-add-btn:hover {
+    color: #fff;
+}
+
+.post-content {
+    margin-bottom: 50px;
+}
+
+.del-icon-form {
+    padding: 3px;
+}
+
+.user-icon {
+    color: #808080;
+    font-size: 11px
+}
+
+.author-name {
+    margin-left: 5px;
+    font-size: 11px;
+    color: #808080;
+}
+
+.card-container {
+    width: 291px;
+    min-height: 150px;
+}
+
+.card-container:hover {
+    cursor: pointer;
+}
+
+.show-card-container {
+    width: 100% !important;
+    min-height: 150px;
+}
+
+.private-post-icon {
+    font-size: 11px;
+    color: #808080;
+    padding-left: 11px;
+    position: absolute;
+    top: 19px;
+}
+
+.category-name {
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 40px
+}
+
+.pb-select-box {
+    width: 100px;
+}
+
+.add-category-icon {
+    margin-left: 10px;
+    background: rgb(151, 150, 150);
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 5px 0px 0px 6px;
+}
+
+.catg-edit,
+.catg-detail {
+    text-decoration: none;
+    color: #fff;
+    padding: 0px 6px;
+}
+
+.catg-edit i,
+.catg-detail i,
+.catg-del-icon {
+    color: #fff;
+}
+
+.catg-del-form {
+    padding: 0px 6px;
+    margin: 0;
+}
+
+.catg-del-btn {
+    background: #6c757d;
+    border: 0px;
+    margin: 0;
+    padding: 0;
+}
+
+.catg-add-btn {
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.catg-add-icon {
+    color: #fff;
+    padding-left: 5px;
+}
+
+.catg-container {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.catg-container p {
+    color: #fff;
+    margin: 0;
+}
+
+.catg-container:hover>.catg-action-btn {
+    display: flex;
+}
+
+.catg-container :focus+.catg-action-btn {
+    display: flex;
+}
+
+.catg-action-btn {
+    display: none;
+}

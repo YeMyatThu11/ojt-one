@@ -17,24 +17,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
 Route::middleware(['auth'])->group(function () {
-    Route::get('posts/create', [PostController::class, 'create'])->name('posts.create');
-    Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-    Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
-    Route::put('posts/{post}', [PostController::class, 'update'])->name('posts.update');
-    Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::post('posts/store', [PostController::class, 'store'])->name('posts.store');
-});
-
-Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::middleware(['auth', 'web'])->group(function () {
-    Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
-    Route::delete('categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-    Route::get('categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
-    Route::put('categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-    Route::get('categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
-    Route::post('categories/store', [CategoryController::class, 'store'])->name('categories.store');
+    Route::prefix('posts')->name('posts.')->group(function () {
+        Route::get('create', [PostController::class, 'create'])->name('create');
+        Route::delete('{post}', [PostController::class, 'destroy'])->name('destroy');
+        Route::get('{post}', [PostController::class, 'show'])->name('show');
+        Route::put('{post}', [PostController::class, 'update'])->name('update');
+        Route::get('{post}/edit', [PostController::class, 'edit'])->name('edit');
+        Route::post('store', [PostController::class, 'store'])->name('store');
+    });
+    Route::prefix('categories')->name('categories.')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('create', [CategoryController::class, 'create'])->name('create');
+        Route::delete('{category}', [CategoryController::class, 'destroy'])->name('destroy');
+        Route::get('{category}', [CategoryController::class, 'show'])->name('show');
+        Route::put('{category}', [CategoryController::class, 'update'])->name('update');
+        Route::get('{category}/edit', [CategoryController::class, 'edit'])->name('edit');
+        Route::post('store', [CategoryController::class, 'store'])->name('store');
+    });
 });
 
 Auth::routes();
 Route::get('/', [PostController::class, 'index']);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function () {
+    return redirect()->route('posts.index');
+});
