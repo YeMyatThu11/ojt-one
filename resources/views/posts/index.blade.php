@@ -3,14 +3,12 @@
 
     <div class="d-flex justify-content-between flex-wrap">
         @foreach ($posts as $post)
-            <div class="card m-3 align-self-start" style="width:300px;min-height:150px">
+            <div class="card m-3 align-self-start card-container" onclick="clickHandler({{ $post->id }})">
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ $post->title }}
                         @if ($post->public_post == 0)
-
                             <i class="fas fa-lock private-post-icon"></i>
-
                         @endif
                     </h5>
 
@@ -24,7 +22,6 @@
                                 @method('delete')
                                 <button style="background: #fff;border: 0;padding:0;" class="btn mr-3 btn-danger btn-sm"
                                     type="submit"><i class="fas fa-trash" style="color: rgb(151, 150, 150)"></i></button>
-
                             </form>
                         </div>
                     @endif
@@ -34,7 +31,9 @@
                             style="color: #fff;padding:5px;border-radius:6px;font-size:9px;text-decoration:none">{{ $tag->name }}</a>
                     @endforeach
                     <hr>
-                    <p class="card-text" style="margin-bottom: 50px">{{ $post->content }}</p>
+                    <p class="card-text" style="margin-bottom: 50px">
+                        {{ Str::limit($post->content, 90, $end = ' ...') }}
+                    </p>
                     <i class="fas fa-user" style="color: #808080;font-size:11px"></i><span
                         style="margin-left:5px;;font-size:11px;color:#808080">{{ $post->user->name }}</span>
                 </div>
@@ -46,6 +45,15 @@
 @endsection
 
 <style>
+    .card-container {
+        width: 291px;
+        min-height: 150px;
+    }
+
+    .card-container:hover {
+        cursor: pointer;
+    }
+
     .private-post-icon {
         font-size: 11px;
         color: #808080;
@@ -55,3 +63,11 @@
     }
 
 </style>
+<script>
+    function clickHandler(id) {
+        console.log('aa', id);
+        let url = "{{ route('posts.show', ':id') }}";
+        url = url.replace(':id', id);
+        document.location.href = url;
+    }
+</script>

@@ -2,98 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Contracts\Services\CategoryServiceInterface;
+use App\Contracts\Services\PostServiceInterface;
 use App\Models\Post;
-use App\Models\PostCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    public function __construct()
+    private $postService;
+    private $categoryService;
+
+    public function __construct(PostServiceInterface $postService, CategoryServiceInterface $categoryService)
     {
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->postService = $postService;
+        $this->categoryService = $categoryService;
     }
 
     public function index()
     {
-        if (Auth::id()) {
-            $posts = Post::where('public_post', 1)->orWhere('author_id', Auth::id())->orderBy('created_at', 'desc')->paginate(12);
-        } else {
-            $posts = Post::where('public_post', 1)->orderBy('created_at', 'desc')->paginate(12);
-        }
-
+        $posts = $this->postService->getPosts();
         return view('posts.index', compact('posts'));
     }
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = $this->categoryService->getAllCategory();
         return view('posts.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string',
-            'content' => 'required|string',
-            'public_post' => 'required|boolean',
-            'author_id' => 'required|integer',
-        ]);
-        $id = Post::create($data)->id;
-        $category_list = $request->input('category_list');
-        if ($category_list !== null) {
-            array_map(function (string $v) use ($id) {
-                $post_category = new PostCategory;
-                $post_category->post_id = $id;
-                $post_category->category_id = (int) $v;
-                $post_category->save();
-            }, $category_list);
-        }
+        $this->postService->createPosts($request);
         return redirect()->route('posts.index');
     }
 
     public function show(Post $post)
     {
-        return view('posts.index', compact('post'));
+        return view('posts.show', compact('post'));
     }
 
     public function edit(Post $post)
     {
         if ($post->author_id === Auth::id()) {
-            $allCatg = Category::all();
-            $selectedCatg = $post->categories->pluck('id')->toArray();
-            return view('posts.edit', compact('post', 'allCatg', 'selectedCatg'));
-        } else {
-            return redirect()->route('posts.index');
+            return $this->accessEditRoute($post);
         }
+        return redirect()->route('posts.index');
     }
 
     public function update(Request $request, Post $post)
     {
-        $data = $request->validate([
-            'title' => 'required|string',
-            'content' => 'required|string',
-            'public_post' => 'required|boolean',
-        ]);
-        $post->update($data);
-        $id = $post->id;
-        $category_list = $request->input('category_list');
-        $pc = PostCategory::where('post_id', $id)->delete();
-        if ($category_list !== null) {
-            foreach ($category_list as $value) {
-                $post_category = new PostCategory;
-                $post_category->post_id = $id;
-                $post_category->category_id = (int) $value;
-                $post_category->save();
-            }
-        }
+        $this->postService->updatePosts($request, $post);
         return redirect()->route('posts.index');
     }
 
     public function destroy(Post $post)
     {
-        $post->delete();
+        $this->postService->deletePosts($post);
         return back();
+    }
+
+    private function accessEditRoute($post)
+    {
+        $allCatg = $this->categoryService->getAllCategory();
+        $selectedCatg = $post->categories->pluck('id')->toArray();
+        return view('posts.edit', compact('post', 'allCatg', 'selectedCatg'));
     }
 }
