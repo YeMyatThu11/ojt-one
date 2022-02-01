@@ -20,15 +20,16 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('categories.create');
+        $redirect = $request->redirect;
+        return view('categories.create', compact('redirect'));
     }
 
     public function store(Request $request)
     {
         $this->categoryService->createCategories($request);
-        return redirect('/categories/create')->with('status', 'Category Created!');
+        return is_null($request->redirect) ? redirect()->route('categories.index') : redirect($request->redirect);
     }
 
     public function show(Category $category)

@@ -18,6 +18,9 @@
     @endif
     <form action="{{ route('categories.store') }}" method="post">
         @csrf
+        @isset($redirect)
+            <input type="hidden" name="redirect" value="{{ $redirect }}">
+        @endisset
         <input type="text" name="name" class="form-control mb-3" placeholder="Enter Name">
         <button class="btn btn-primary float-end px-5">Submit</button>
     </form>

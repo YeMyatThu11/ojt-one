@@ -11,7 +11,7 @@
                         @if ($post->user->id === Auth::id())
                             <div style="display:flex;position: absolute;right:6px;top:6px">
                                 <a style="text-decoration: none;color:#fff;padding:3px"
-                                    href="{{ route('categories.edit', $category->id) }}">
+                                    href="{{ route('posts.edit', $post->id) }}">
                                     <i class="fas fa-edit" style="color: rgb(151, 150, 150)"></i></a>
                                 <form style="padding:3px" action="{{ route('posts.destroy', $post->id) }}" method="post">
                                     @csrf
@@ -29,7 +29,8 @@
                                 style="color: #fff;padding:5px;border-radius:6px;font-size:9px;text-decoration:none">{{ $tag->name }}</a>
                         @endforeach
                         <hr>
-                        <p class="card-text" style="margin-bottom: 50px">{{ $post->content }}</p>
+                        <p class="card-text" style="margin-bottom: 50px">
+                            {{ Str::limit($post->content, 90, $end = ' ...') }}</p>
                         <i class="fas fa-user" style="color: #808080;font-size:11px"></i><span
                             style="margin-left:5px;;font-size:11px;color:#808080">{{ $post->user->name }}</span>
                     </div>

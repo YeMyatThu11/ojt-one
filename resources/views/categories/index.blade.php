@@ -24,7 +24,7 @@
             </div>
         @endforeach
         <a href="{{ route('categories.create') }}" class="bg-secondary"
-            style="text-decoration: none;padding: 10px;margin:5px;border-radius: 20px;color:#fff;">Add New Post <i
+            style="text-decoration: none;padding: 10px;margin:5px;border-radius: 20px;color:#fff;">Add New <i
                 class="fas fa-plus-circle" style="color:#fff;padding-left:5px"></i></a>
     </div>
 @endsection
