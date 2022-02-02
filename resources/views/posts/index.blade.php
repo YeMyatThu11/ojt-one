@@ -12,7 +12,7 @@
                         @endif
                     </h5>
 
-                    @if ($post->user->id === Auth::id())
+                    @if ($post->user->id === Auth::id() || (Auth()->user() ? Auth()->user()->role == 1 : false))
                         <div class="action-btn-wrapper">
                             <a class="action-btn" href="{{ route('posts.edit', $post->id) }}">
                                 <i class="fas fa-edit edit-icon"></i></a>
