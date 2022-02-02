@@ -6,10 +6,10 @@ use App\Contracts\Dao\CategoryDaoInterface;
 use App\Contracts\Dao\PostDaoInterface;
 use App\Contracts\Services\CategoryServiceInterface;
 use App\Contracts\Services\PostServiceInterface;
-use App\Repositories\Dao\CategoryDao;
-use App\Repositories\Dao\PostDao;
-use App\Repositories\Services\CategoryService;
-use App\Repositories\Services\PostService;
+use App\Dao\CategoryDao;
+use App\Dao\PostDao;
+use App\Services\CategoryService;
+use App\Services\PostService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

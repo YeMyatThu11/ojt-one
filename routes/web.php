@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +36,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{category}/edit', [CategoryController::class, 'edit'])->name('edit');
         Route::post('store', [CategoryController::class, 'store'])->name('store');
     });
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
 Auth::routes();

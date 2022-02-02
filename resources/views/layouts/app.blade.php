@@ -61,6 +61,10 @@
 
                             @endif
                         @else
+                            @if (Auth::user()->role == 1)
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            @endif
                             <li class="nav-item"><a class="nav-link"
                                     href="{{ route('posts.index') }}">Home</a>
                             </li>
@@ -79,7 +83,7 @@
                                         {{ Auth::user()->email }}</span>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                 document.getElementById('logout-form').submit();">
+                                                                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -17,7 +18,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -28,6 +29,15 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected function redirectTo()
+    {
+        if (Auth()->user()->role == 1) {
+            return route('admin.dashboard');
+        } else if (Auth()->user()->role == 2) {
+            return route('posts.index');
+        }
+    }
+
     /**
      * Create a new controller instance.
      *
@@ -36,5 +46,24 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        $input = $request->all();
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+            if (auth()->user()->role == 1) {
+                return redirect()->route('admin.dashboard');
+            } else if (auth()->user()->role == 2) {
+                return redirect()->route('posts.index');
+            }
+        } else {
+            return redirect()->route('login')->with('password', 'credentials are not correct');
+        }
     }
 }

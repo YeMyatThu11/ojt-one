@@ -21,19 +21,32 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = $this->postService->getPosts();
+        if (Auth::check() && Auth()->user()->role == 1) {
+            $posts = $this->postService->getAllPostsForAdmin(12);
+        } else if (Auth::check() && Auth()->user()->role == 2) {
+            $posts = $this->postService->getPosts(Auth::id());
+        } else {
+            $posts = $this->postService->getPosts();
+        }
         return view('posts.index', compact('posts'));
     }
 
     public function create()
     {
-        $categories = $this->categoryService->getAllCategory();
+        $categories = $this->categoryService->getAllCategories();
         return view('posts.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
-        $this->postService->createPosts($request);
+        $data = $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'public_post' => 'required|boolean',
+            'author_id' => 'required|string',
+        ]);
+        $category_list = $request->input('category_list');
+        $this->postService->createPost($data, $category_list);
         return redirect()->route('posts.index');
     }
 
@@ -44,7 +57,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        if ($post->author_id === Auth::id()) {
+        if ($post->author_id === Auth::id() || Auth()->user()->role == 1) {
             return $this->accessEditRoute($post);
         }
         return redirect()->route('posts.index');
@@ -52,19 +65,28 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        $this->postService->updatePosts($request, $post);
+        $data = $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'public_post' => 'required|boolean',
+        ]);
+        $category_list = $request->input('category_list');
+        $this->postService->updatePost($data, $category_list, $post);
         return redirect()->route('posts.index');
     }
 
     public function destroy(Post $post)
     {
-        $this->postService->deletePosts($post);
-        return back();
+        if ($post->author_id === Auth::id() || Auth()->user()->role == 1) {
+            $this->postService->deletePost($post);
+            return back();
+        }
+        return redirect()->route('posts.index');
     }
 
     private function accessEditRoute($post)
     {
-        $allCatg = $this->categoryService->getAllCategory();
+        $allCatg = $this->categoryService->getAllCategories();
         $selectedCatg = $post->categories->pluck('id')->toArray();
         return view('posts.edit', compact('post', 'allCatg', 'selectedCatg'));
     }

@@ -3,8 +3,8 @@ namespace App\Contracts\Dao;
 
 interface CategoryDaoInterface
 {
-    public function getAllCategory();
-    public function createCategories($validate);
-    public function updateCategories($validate, $category);
-    public function deleteCategories($category);
+    public function getAllCategories();
+    public function createCategory($data);
+    public function updateCategory($data, $category);
+    public function deleteCategory($category);
 }

@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = $this->categoryService->getAllCategory();
+        $categories = $this->categoryService->getAllCategories();
         return view('categories.index', compact('categories'));
     }
 
@@ -28,7 +28,10 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $this->categoryService->createCategories($request);
+        $data = $request->validate([
+            'name' => 'required|string',
+        ]);
+        $this->categoryService->createCategory($data);
         return is_null($request->redirect) ? redirect()->route('categories.index') : redirect($request->redirect);
     }
 
@@ -44,13 +47,16 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        $this->categoryService->updateCategories($request, $category);
+        $data = $request->validate([
+            'name' => 'required|string',
+        ]);
+        $this->categoryService->updateCategory($data, $category);
         return redirect()->route('categories.index');
     }
 
     public function destroy(Category $category)
     {
-        $this->categoryService->deleteCategories($category);
+        $this->categoryService->deleteCategory($category);
         return back();
     }
 }
