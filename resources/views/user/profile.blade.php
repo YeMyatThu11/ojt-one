@@ -28,9 +28,12 @@
                 <div class="change-btn">
                     <a class="href-txt" href="{{ route('user.resetPWForm', $user->id) }}">Reset Password</a>
                 </div>
-                <div class="change-btn">
-                    <a class="href-txt" href="">Logout</a>
-                </div>
+                @if ($user->id == Auth::id())
+                    <div class="change-btn">
+                        <a class="href-txt" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                    </div>
+                @endif
             </div>
         </div>
         <div class="user-posts col-lg-8 offset-lg-1">
