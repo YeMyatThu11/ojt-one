@@ -9,9 +9,7 @@
             <button style="color: #000" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
                 data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
                 aria-selected="false">Users</button>
-            <button style="color: #000" class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
-                data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
-                aria-selected="false">Categories</button>
+
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
@@ -72,11 +70,11 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->role == 2 ? 'User' : 'Admin' }}</td>
                                 <td class="d-flex ">
-                                    <a class="action-btn" href="{{ route('posts.edit', $post->id) }}">
+                                    <a class="action-btn" href="{{ route('user.edit', $user->id) }}">
                                         <i class="fas fa-edit edit-icon"></i></a>
-                                    <a class="action-btn" href="{{ route('posts.show', $post->id) }}">
+                                    <a class="action-btn" href="{{ route('user.profile', $user->id) }}">
                                         <i class="fas fa-info-circle edit-icon"></i></a>
-                                    <form class="del-icon-form " action="{{ route('posts.destroy', $post->id) }}"
+                                    <form class="del-icon-form " action="{{ route('user.destroy', $user->id) }}"
                                         method="post">
                                         @csrf
                                         @method('delete')
@@ -91,7 +89,7 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+
     </div>
 
 

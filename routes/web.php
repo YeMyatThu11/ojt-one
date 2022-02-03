@@ -37,10 +37,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('{category}/edit', [CategoryController::class, 'edit'])->name('edit');
         Route::post('store', [CategoryController::class, 'store'])->name('store');
     });
-    Route::prefix('user')->name('user.')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('index');
-        Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit');
+    Route::get('{user}/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::middleware(['user'])->prefix('user')->name('user.')->group(function () {
+        Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('user');
         Route::put('{user}', [UserController::class, 'update'])->name('update');
+        Route::get('/{user}/reset_password_form', [UserController::class, 'resetPWForm'])->name('resetPWForm');
+        Route::put('{user}/reset_password', [UserController::class, 'resetPW'])->name('resetPW');
+        Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
     });
 });
 

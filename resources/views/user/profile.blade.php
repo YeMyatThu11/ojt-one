@@ -2,6 +2,9 @@
 @section('content')
 
     <div class="row">
+        @if ($user->id !== Auth()->user()->id)
+            <p class="alert alert-secondary" role="alert">Your are viewing {{ $user->name }}'s Profile</p>
+        @endif
         <div class="user-siderbar col-lg-2">
             <div class="user-profile">
                 <div class="profile-container">
@@ -23,7 +26,7 @@
                     <a href="{{ route('user.edit', $user->id) }}" class="href-txt">Change Profile</a>
                 </div>
                 <div class="change-btn">
-                    <a class="href-txt" href="">Forgot Password</a>
+                    <a class="href-txt" href="{{ route('user.resetPWForm', $user->id) }}">Reset Password</a>
                 </div>
                 <div class="change-btn">
                     <a class="href-txt" href="">Logout</a>
@@ -32,7 +35,7 @@
         </div>
         <div class="user-posts col-lg-8 offset-lg-1">
             <div class="d-flex  justify-content-center flex-wrap post-index">
-                @foreach (Auth()->user()->posts as $post)
+                @foreach ($user->posts as $post)
                     <div class="card shadow  my-5 mx-3 align-self-start card-container"
                         onclick="clickHandler({{ $post->id }})">
                         <div class="card-body">
@@ -43,7 +46,7 @@
                                 @endif
                             </h5>
 
-                            @if ($post->user->id === Auth::id() || (Auth()->user() ? $user->role == 1 : false))
+                            @if ($post->user->id === Auth::id() || (Auth()->user() ? Auth()->user()->role == 1 : false))
                                 <div class="action-btn-wrapper">
                                     <a class="action-btn" href="{{ route('posts.edit', $post->id) }}">
                                         <i class="fas fa-edit edit-icon"></i></a>

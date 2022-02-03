@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Services\UserServiceInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,10 +15,9 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index()
+    public function profile(User $user)
     {
-        $user = Auth()->user();
-        return view('user.index', compact('user'));
+        return view('user.profile', compact('user'));
     }
 
     public function edit(User $user)
@@ -30,9 +29,31 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
         ]);
         $this->userService->updateUserProfile($data, $user);
-        return redirect()->route('user.index');
+        return redirect()->route('user.profile', $user->id);
+    }
+
+    public function resetPWForm(User $user)
+    {
+        return view('user.resetpassword', compact('user'));
+    }
+
+    public function resetPW(Request $request, User $user)
+    {
+        $request->validate([
+            'password' => 'required|confirmed|min:8',
+        ]);
+        $hash = Hash::make($request->password);
+        $this->userService->resetPassword($hash, $user);
+        return redirect()->route('user.profile', $user->id);
+    }
+
+    public function destroy(User $user)
+    {
+        $this->userService->deleteUser($user);
+        return back();
+
     }
 }
