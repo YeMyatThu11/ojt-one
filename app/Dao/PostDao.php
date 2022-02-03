@@ -34,7 +34,7 @@ class PostDao implements PostDaoInterface
 
     public function getAllPostsForAdmin($paginateLimit)
     {
-        return Post::orderBy('created_at', 'desc')->paginate($paginateLimit);
+        return Post::orderBy('updated_at', 'desc')->paginate($paginateLimit);
     }
 
 }

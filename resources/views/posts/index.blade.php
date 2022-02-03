@@ -3,7 +3,7 @@
 
     <div class="d-flex justify-content-between flex-wrap post-index">
         @foreach ($posts as $post)
-            <div class="card m-3 align-self-start card-container" onclick="clickHandler({{ $post->id }})">
+            <div class="card shadow  my-5 mx-3 align-self-start card-container" onclick="clickHandler({{ $post->id }})">
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ $post->title }}

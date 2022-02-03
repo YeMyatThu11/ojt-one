@@ -2,12 +2,12 @@
 @section('content')
 
     <div class="d-flex justify-content-between flex-wrap">
-        <div class="card m-3 align-self-start show-card-container">
+        <div class="card m-3 align-self-start shadow show-card-container">
             <div class="card-body">
                 <h2 class="card-title">
                     {{ $post->title }}
                 </h2>
-                @if ($post->user->id === Auth::id())
+                @if ($post->user->id === Auth::id() || (Auth()->user() ? Auth()->user()->role == 1 : false))
                     <div class="action-btn-wrapper">
                         <a class="action-btn" href="{{ route('posts.edit', $post->id) }}">
                             <i class="fas fa-edit edit-icon"></i></a>

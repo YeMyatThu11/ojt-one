@@ -21,9 +21,7 @@ class PostController extends Controller
 
     public function index()
     {
-        if (Auth::check() && Auth()->user()->role == 1) {
-            $posts = $this->postService->getAllPostsForAdmin(12);
-        } else if (Auth::check() && Auth()->user()->role == 2) {
+        if (Auth::check()) {
             $posts = $this->postService->getPosts(Auth::id());
         } else {
             $posts = $this->postService->getPosts();

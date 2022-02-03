@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,11 @@ Route::middleware(['auth'])->group(function () {
         Route::put('{category}', [CategoryController::class, 'update'])->name('update');
         Route::get('{category}/edit', [CategoryController::class, 'edit'])->name('edit');
         Route::post('store', [CategoryController::class, 'store'])->name('store');
+    });
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit');
+        Route::put('{user}', [UserController::class, 'update'])->name('update');
     });
 });
 
