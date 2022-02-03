@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,7 +51,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
-Auth::routes();
+Route::name('auth.')->group(function () {
+    Route::get('login', [AuthController::class, 'index'])->name('login');
+    Route::post('customLogin', [AuthController::class, 'customLogin'])->name('customLogin');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('register', [AuthController::class, 'register'])->name('register');
+    Route::post('customRegister', [AuthController::class, 'customRegister'])->name('customRegister');
+});
 Route::get('/', [PostController::class, 'index']);
 Route::get('/home', function () {
     return redirect()->route('posts.index');

@@ -30,7 +30,7 @@
                 </div>
                 @if ($user->id == Auth::id())
                     <div class="change-btn">
-                        <a class="href-txt" href="{{ route('logout') }}"
+                        <a class="href-txt" href="{{ route('auth.logout') }}"
                             onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                     </div>
                 @endif

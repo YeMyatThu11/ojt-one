@@ -46,17 +46,17 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
+                            @if (Route::has('auth.login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link"
                                         href="{{ route('posts.index') }}">Home</a></li>
                             @endif
 
-                            @if (Route::has('register'))
+                            @if (Route::has('auth.register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('auth.register') }}">Register</a>
                                 </li>
 
                             @endif
@@ -82,11 +82,11 @@
                                     <a class="dropdown-item" href="{{ route('user.profile', Auth()->user()->id) }}">
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('auth.logout') }}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
                                         class="d-none">
                                         @csrf
                                     </form>
