@@ -25,7 +25,12 @@
                 <p class="card-text post-content">
                     {{ $post->content }}
                 </p>
-                <i class="fas fa-user user-icon"></i><span class="author-name">{{ $post->user->name }}</span>
+                <div style="margin-top: 60px">
+                    <i class="fas fa-user user-icon"></i>
+                    <a class="author-name" href="{{ route('user.profile', $post->user->id) }}">
+                        {{ $post->user->name }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>

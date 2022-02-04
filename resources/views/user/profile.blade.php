@@ -22,24 +22,26 @@
                         <p class="date-label">Joined Date</p>
                     </div>
                 </div>
-                <div class="change-btn">
-                    <a href="{{ route('user.edit', $user->id) }}" class="href-txt">Change Profile</a>
-                </div>
-                <div class="change-btn">
-                    <a class="href-txt" href="{{ route('user.resetPWForm', $user->id) }}">Reset Password</a>
-                </div>
-                @if ($user->id == Auth::id())
+                @if ($user->id == Auth::id() || Auth()->user()->role == 1)
                     <div class="change-btn">
-                        <a class="href-txt" href="{{ route('auth.logout') }}"
-                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                        <a href="{{ route('user.edit', $user->id) }}" class="href-txt">Change Profile</a>
                     </div>
+                    <div class="change-btn">
+                        <a class="href-txt" href="{{ route('user.resetPWForm', $user->id) }}">Update Password</a>
+                    </div>
+                    @if ($user->id == Auth::id())
+                        <div class="change-btn">
+                            <a class="href-txt" href="{{ route('auth.logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                        </div>
+                    @endif
                 @endif
             </div>
         </div>
         <div class="user-posts col-lg-8 offset-lg-1">
             <div class="d-flex  justify-content-center flex-wrap post-index">
                 @foreach ($user->posts as $post)
-                    <div class="card shadow  my-5 mx-3 align-self-start card-container"
+                    <div class="card shadow  my-4 mx-3 align-self-start card-container"
                         onclick="clickHandler({{ $post->id }})">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -78,6 +80,14 @@
         </div>
     </div>
 @endsection
+<script>
+    function clickHandler(id) {
+        console.log('aa', id);
+        let url = "{{ route('posts.show', ':id') }}";
+        url = url.replace(':id', id);
+        document.location.href = url;
+    }
+</script>
 <style>
     .profile-container {
         margin: 0 auto;

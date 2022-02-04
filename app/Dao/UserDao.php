@@ -3,6 +3,7 @@ namespace app\Dao;
 
 use App\Contracts\Dao\UserDaoInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserDao implements UserDaoInterface
 {
@@ -25,5 +26,19 @@ class UserDao implements UserDaoInterface
     public function deleteUser($user)
     {
         return $user->delete();
+    }
+
+    public function promoteUser($user)
+    {
+        return $user->update(['role' => 1]);
+    }
+
+    public function createUser($data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
     }
 }

@@ -56,4 +56,10 @@ class UserController extends Controller
         return back();
 
     }
+
+    public function promote(User $user)
+    {
+        $this->userService->promoteUser($user);
+        return back();
+    }
 }

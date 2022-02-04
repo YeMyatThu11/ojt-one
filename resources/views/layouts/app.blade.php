@@ -11,8 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script src="{{ asset('js/app.js') }}"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -46,17 +45,17 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('auth.login'))
+                            @if (Route::has('auth.loginForm'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
+                                    <a class="nav-link" href="{{ route('auth.loginForm') }}">Login</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link"
                                         href="{{ route('posts.index') }}">Home</a></li>
                             @endif
 
-                            @if (Route::has('auth.register'))
+                            @if (Route::has('auth.registerForm'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('auth.register') }}">Register</a>
+                                    <a class="nav-link" href="{{ route('auth.registerForm') }}">Register</a>
                                 </li>
 
                             @endif
@@ -82,8 +81,9 @@
                                     <a class="dropdown-item" href="{{ route('user.profile', Auth()->user()->id) }}">
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('auth.logout') }}" onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('auth.logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
@@ -97,7 +97,7 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4 container  mt-5">
+        <main class="py-4 container  mt-2">
             @yield('content')
         </main>
     </div>

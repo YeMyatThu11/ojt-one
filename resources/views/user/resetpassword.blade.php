@@ -12,7 +12,7 @@
                 </div>
             @endif
             <div class="card">
-                <div class="card-header">Reset Password </div>
+                <div class="card-header">Change Password </div>
                 {{-- {{ Auth()->user()->role==1? 'For '$user->name : ''}} --}}
                 <div class="card-body">
                     <form method="POST" action="{{ route('user.resetPW', $user->id) }}">

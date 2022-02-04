@@ -55,10 +55,8 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        if ($post->author_id === Auth::id() || Auth()->user()->role == 1) {
-            return $this->accessEditRoute($post);
-        }
-        return redirect()->route('posts.index');
+        return $this->accessEditRoute($post);
+
     }
 
     public function update(Request $request, Post $post)
@@ -75,11 +73,9 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if ($post->author_id === Auth::id() || Auth()->user()->role == 1) {
-            $this->postService->deletePost($post);
-            return back();
-        }
-        return redirect()->route('posts.index');
+        $this->postService->deletePost($post);
+        return back();
+
     }
 
     private function accessEditRoute($post)

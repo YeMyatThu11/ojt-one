@@ -11,7 +11,7 @@
                     <div class="card-header">{{ __('Login') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('auth.customLogin') }}">
+                        <form method="POST" action="{{ route('auth.login') }}">
                             @csrf
 
                             <div class="row mb-3">

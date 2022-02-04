@@ -3,7 +3,7 @@
 
     <div class="d-flex justify-content-between flex-wrap post-index">
         @foreach ($posts as $post)
-            <div class="card shadow  my-5 mx-3 align-self-start card-container" onclick="clickHandler({{ $post->id }})">
+            <div class="card shadow  my-4 mx-3 align-self-start card-container" onclick="clickHandler({{ $post->id }})">
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ $post->title }}
@@ -29,8 +29,11 @@
                             class="bg-secondary tag">{{ $tag->name }}</a>
                     @endforeach
                     <hr>
-                    <p class="card-text post-content"> {{ Str::limit($post->content, 90, $end = ' ...') }} </p>
-                    <i class="fas fa-user user-icon"></i><span class="author-name">{{ $post->user->name }}</span>
+                    <p class="card-text post-content"> {{ Str::limit($post->content, 80, $end = ' ...') }} </p>
+                    <div class="author-container">
+                        <i class="fas fa-user user-icon"></i><span class="author-name">{{ $post->user->name }}</span>
+                    </div>
+
                 </div>
             </div>
         @endforeach

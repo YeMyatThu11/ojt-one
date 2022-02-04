@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Services\UserServiceInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Session;
 
 class AuthController extends Controller
 {
-    public function __construct()
+    private $userService;
+    public function __construct(UserServiceInterface $userService)
     {
-        $this->middleware('guest', ['except' => ['logout', 'getLogout']]);
+        $this->userService = $userService;
     }
 
     public function index()
@@ -20,7 +21,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function customLogin(Request $request)
+    public function login(Request $request)
     {
         $request->validate([
             'email' => 'required',
@@ -35,42 +36,31 @@ class AuthController extends Controller
                 return redirect()->route('posts.index');
             }
         }
-        return redirect()->route("auth.login")->withErrors(['Credentials are not correct']);
+        return redirect()->route("auth.loginForm")->withErrors(['Credentials are not correct']);
     }
 
-    public function register()
+    public function registerForm()
     {
         return view('auth.register');
     }
 
-    public function customRegister(Request $request)
+    public function register(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'role' => 'required',
             'password' => 'required|confirmed|min:8',
         ]);
         $data = $request->all();
-        $user = $this->create($data);
+        $user = $this->userService->createUser($data);
         Auth::login($user);
         return redirect()->route("posts.index");
-    }
-
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'role' => $data['role'],
-            'password' => Hash::make($data['password']),
-        ]);
     }
 
     public function logout()
     {
         Session::flush();
         Auth::logout();
-        return redirect()->route('auth.login');
+        return redirect()->route('auth.loginForm');
     }
 }

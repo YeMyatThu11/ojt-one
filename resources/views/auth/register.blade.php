@@ -11,7 +11,7 @@
                     <div class="card-header">Register</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('auth.customRegister') }}">
+                        <form method="POST" action="{{ route('auth.register') }}">
                             @csrf
 
                             <div class="row mb-3">
@@ -38,7 +38,6 @@
                                         required autocomplete="new-password">
                                 </div>
                             </div>
-
                             <div class="row mb-3">
                                 <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Confirm
                                     Password</label>
@@ -46,16 +45,6 @@
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
                                         name="password_confirmation" required autocomplete="new-password">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Role</label>
-                                <div class="col-md-6">
-                                    <select id="role" class="form-select form-select-sm  pb-select-box" name="role"
-                                        aria-label=".form-select-sm example">
-                                        <option value=2 class="p-4" selected>User </option>
-                                        <option value=1 class="p-4">Admin</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="row mb-0">

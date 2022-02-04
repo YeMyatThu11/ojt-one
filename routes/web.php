@@ -22,10 +22,10 @@ Route::get('posts', [PostController::class, 'index'])->name('posts.index');
 Route::middleware(['auth'])->group(function () {
     Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('create', [PostController::class, 'create'])->name('create');
-        Route::delete('{post}', [PostController::class, 'destroy'])->name('destroy');
+        Route::delete('{post}', [PostController::class, 'destroy'])->middleware('owner')->name('destroy');
         Route::get('{post}', [PostController::class, 'show'])->name('show');
         Route::put('{post}', [PostController::class, 'update'])->name('update');
-        Route::get('{post}/edit', [PostController::class, 'edit'])->name('edit');
+        Route::get('{post}/edit', [PostController::class, 'edit'])->middleware('owner')->name('edit');
         Route::post('store', [PostController::class, 'store'])->name('store');
     });
     Route::prefix('categories')->name('categories.')->group(function () {
@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{user}/reset_password_form', [UserController::class, 'resetPWForm'])->name('resetPWForm');
         Route::put('{user}/reset_password', [UserController::class, 'resetPW'])->name('resetPW');
         Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
+        Route::put('{user}/promote', [UserController::class, 'promote'])->name('promote');
     });
 });
 
@@ -52,11 +53,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 });
 
 Route::name('auth.')->group(function () {
-    Route::get('login', [AuthController::class, 'index'])->name('login');
-    Route::post('customLogin', [AuthController::class, 'customLogin'])->name('customLogin');
+    Route::get('loginForm', [AuthController::class, 'index'])->name('loginForm');
+    Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('register', [AuthController::class, 'register'])->name('register');
-    Route::post('customRegister', [AuthController::class, 'customRegister'])->name('customRegister');
+    Route::get('registerForm', [AuthController::class, 'registerForm'])->name('registerForm');
+    Route::post('register', [AuthController::class, 'register'])->name('register');
 });
 Route::get('/', [PostController::class, 'index']);
 Route::get('/home', function () {
