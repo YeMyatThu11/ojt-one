@@ -37,12 +37,10 @@
                                     <i class="fas fa-edit edit-icon"></i></a>
                                 <a class="action-btn" href="{{ route('posts.show', $post->id) }}">
                                     <i class="fas fa-info-circle edit-icon"></i></a>
-                                <form class="del-icon-form " action="{{ route('posts.destroy', $post->id) }}"
-                                    method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="action-del-btn"><i class="fas fa-trash del-icon"></i></button>
-                                </form>
+                                <a data-bs-toggle="modal" data-bs-target="#deleteConfirmation" data-table="posts"
+                                    class=" action-btn btn-delete" data-item="{{ $post->id }}" type="submit">
+                                    <i class="fas fa-trash del-icon"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -77,18 +75,19 @@
                                         <i class="fas fa-info-circle edit-icon"></i>
                                     </a>
                                     <a data-bs-toggle="modal" data-bs-target="#deleteConfirmation"
-                                        data-item="{{ $user->id }}" data-name={{ $user->name }}
-                                        class=" action-btn btn-delete" type="submit">
+                                        class=" action-btn btn-delete" data-item="{{ $user->id }}"
+                                        data-name="{{ $user->name }}" type="submit">
                                         <i class="fas fa-trash del-icon"></i>
                                     </a>
-                                    @if ($user->role == 2)
-                                        <a data-item="{{ $user->id }}" data-name={{ $user->name }}
+                                    @if ($user->id !== Auth::id())
+                                        <a data-item="{{ $user->id }}" data-name="{{ $user->name }}"
                                             class="action-btn btn-promote" data-bs-toggle="modal"
-                                            data-bs-target="#promoteConfirmation">
-                                            <i class="fas fa-plus-circle edit-icon"></i>
+                                            data-role="{{ $user->role }}" data-bs-target="#promoteConfirmation">
+                                            <i
+                                                class="fas {{ $user->role == 1 ? 'fa-minus-circle' : 'fa-plus-circle' }} edit-icon">
+                                            </i>
                                         </a>
                                     @endif
-
                                 </td>
                             </tr>
                         @endforeach
@@ -96,72 +95,5 @@
                 </table>
             </div>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="promoteConfirmation" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered model-dialog-adm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <form class="user-promote-form" action="" method="post">
-                            @csrf
-                            @method('put')
-                            <button type="button" class="btn btn-secondary action-promote-btn">Yes</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered model-dialog-adm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Delete User</h5>
-                    </div>
-                    <div class="modal-body">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <form class="del-icon-form " action="" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="button" class="btn btn-secondary action-delete-btn">Yes</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-    <script>
-        $(document).ready(() => {
-            var userId;
-            $(document).on("click", ".btn-promote", function() {
-                userId = $(this).attr('data-item');
-                var username = $(this).attr('data-name');
-                $('.modal-body').text(`Are you sure about promoting user "${username}" into admin?`);
-            });
-            $(document).on("click", ".action-promote-btn", () => {
-                $('.user-promote-form').attr("action", `/user/${userId}/promote`);
-                $('.user-promote-form').submit();
-            });
-            $(document).on("click", ".btn-delete", function() {
-                userId = $(this).attr('data-item');
-                var username = $(this).attr('data-name');
-                $('.modal-body').text(`Are you sure about deleting user "${username}"?`);
-            });
-            $(document).on("click", ".action-delete-btn", () => {
-                $('.del-icon-form').attr("action", `/user/${userId}`);
-                $('.del-icon-form').submit();
-            });
-        });
-    </script>
-
 @endsection

@@ -4,6 +4,7 @@
     position: absolute;
     right: 6px;
     top: 6px;
+    z-index: 300;
 }
 
 a {
@@ -13,7 +14,7 @@ a {
 .action-btn {
     text-decoration: none;
     color: #fff;
-    padding: 3px
+    padding: 3px !important;
 }
 
 .edit-icon,
@@ -148,7 +149,7 @@ a {
 
 .catg-container {
     margin: 5px;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 20px;
 }
 

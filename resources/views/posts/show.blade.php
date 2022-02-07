@@ -11,11 +11,10 @@
                     <div class="action-btn-wrapper">
                         <a class="action-btn" href="{{ route('posts.edit', $post->id) }}">
                             <i class="fas fa-edit edit-icon"></i></a>
-                        <form class="del-icon-form" action="{{ route('posts.destroy', $post->id) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button class="action-del-btn" type="submit"><i class="fas fa-trash del-icon"></i></button>
-                        </form>
+                        <a data-bs-toggle="modal" data-bs-target="#deleteConfirmation" data-table="posts"
+                            class=" action-btn btn-delete" data-item="{{ $post->id }}" type="submit">
+                            <i class="fas fa-trash del-icon"></i>
+                        </a>
                     </div>
                 @endif
                 @foreach ($post->categories as $tag)
@@ -34,4 +33,5 @@
             </div>
         </div>
     </div>
+
 @endsection

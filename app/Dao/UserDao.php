@@ -30,7 +30,8 @@ class UserDao implements UserDaoInterface
 
     public function promoteUser($user)
     {
-        return $user->update(['role' => 1]);
+        $role = $user->role == 1 ? $user->role + 1 : $user->role - 1;
+        return $user->update(['role' => $role]);
     }
 
     public function createUser($data)

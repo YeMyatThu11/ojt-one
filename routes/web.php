@@ -53,12 +53,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 });
 
 Route::name('auth.')->group(function () {
-    Route::get('loginForm', [AuthController::class, 'index'])->name('loginForm');
-    Route::post('login', [AuthController::class, 'login'])->name('login');
+    Route::get('login', [AuthController::class, 'index'])->name('loginForm')->middleware('guest');
+    Route::post('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('registerForm', [AuthController::class, 'registerForm'])->name('registerForm');
-    Route::post('register', [AuthController::class, 'register'])->name('register');
+    Route::get('register', [AuthController::class, 'registerForm'])->name('registerForm')->middleware('guest');
+    Route::post('register', [AuthController::class, 'register'])->name('register')->middleware('guest');
+    Route::get('forgot-password', [AuthController::class, 'forgotPasswordForm'])->name('forgot-password-form')->middleware('guest');
+    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password')->middleware('guest');
+    Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('reset-password')->middleware('guest');
 });
+Route::get('reset-password/{token}', [AuthController::class, 'resetPasswordForm'])->name('password.reset');
 Route::get('/', [PostController::class, 'index']);
 Route::get('/home', function () {
     return redirect()->route('posts.index');
