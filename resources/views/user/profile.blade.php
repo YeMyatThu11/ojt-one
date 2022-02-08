@@ -44,8 +44,8 @@
                     <div class="card shadow  my-4 mx-3 align-self-start card-container"
                         onclick="clickHandler({{ $post->id }})">
                         <div class="card-body">
-                            <h5 class="card-title">
-                                {{ Str::limit($post->title, 23, $end = ' ...') }}
+                            <h5 class="card-title post-title">
+                                {{ $post->title }}
                                 @if ($post->public_post == 0)
                                     <i class="fas fa-lock private-post-icon"></i>
                                 @endif

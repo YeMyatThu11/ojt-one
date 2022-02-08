@@ -8,7 +8,7 @@
                 <div class="card shadow m-3 align-self-start  card-container">
                     <div class="card-body  d-flex flex-column">
                         <div>
-                            <h5 class="card-title">{{ Str::limit($post->title, 23, $end = ' ...') }}</h5>
+                            <h5 class="card-title post-title">{{ $post->title }}</h5>
                             @if ($post->user->id === Auth::id() || (Auth()->user() ? Auth()->user()->role == 1 : false))
                                 <div class="action-btn-wrapper">
                                     <a class="action-btn" href="{{ route('posts.edit', $post->id) }}">

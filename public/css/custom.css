@@ -47,6 +47,10 @@ a {
     padding: 3px;
 }
 
+.post-content {
+    padding-bottom: 1rem;
+}
+
 .user-icon {
     color: #808080;
     font-size: 11px
@@ -68,12 +72,16 @@ a {
 }
 
 .card-container {
-    width: 291px;
-    height: 220px;
+    width: 570px;
+    min-height: 220px;
 }
 
 .card-container:hover {
     cursor: pointer;
+}
+
+.post-title {
+    padding-right: 40px;
 }
 
 .show-card-container {
