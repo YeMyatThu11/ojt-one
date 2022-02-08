@@ -11,4 +11,5 @@ interface UserDaoInterface
     public function createUser($data);
     public function updateUserPassword($email, $password);
     public function userVerified($userId);
+    public function getUserById($userId);
 }

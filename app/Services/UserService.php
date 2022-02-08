@@ -45,5 +45,9 @@ class UserService implements UserServiceInterface
     {
         return $this->userDao->userVerified($userId);
     }
+    public function getUserById($userId)
+    {
+        return $this->userDao->getUserById($userId);
+    }
 
 }

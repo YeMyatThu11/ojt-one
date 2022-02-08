@@ -1,286 +1,198 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Welcome Email</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">
-        /**
-   * Google webfonts. Recommended to include the .woff version for cross-client compatibility.
-   */
-        @media screen {
-            @font-face {
-                font-family: 'Source Sans Pro';
-                font-style: normal;
-                font-weight: 400;
-                src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff) format('woff');
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Simple Transactional Email</title>
+    <style>
+        @media only screen and (max-width: 620px) {
+            table.body h1 {
+                font-size: 28px !important;
+                margin-bottom: 10px !important;
             }
 
-            @font-face {
-                font-family: 'Source Sans Pro';
-                font-style: normal;
-                font-weight: 700;
-                src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/toadOcfmlt9b38dHJxOBGFkQc6VGVFSmCnC_l7QZG60.woff) format('woff');
+            table.body p,
+            table.body ul,
+            table.body ol,
+            table.body td,
+            table.body span,
+            table.body a {
+                font-size: 16px !important;
+            }
+
+            table.body .wrapper,
+            table.body .article {
+                padding: 10px !important;
+            }
+
+            table.body .content {
+                padding: 0 !important;
+            }
+
+            table.body .container {
+                padding: 0 !important;
+                width: 100% !important;
+            }
+
+            table.body .main {
+                border-left-width: 0 !important;
+                border-radius: 0 !important;
+                border-right-width: 0 !important;
+            }
+
+            table.body .btn table {
+                width: 100% !important;
+            }
+
+            table.body .btn a {
+                width: 100% !important;
+            }
+
+            table.body .img-responsive {
+                height: auto !important;
+                max-width: 100% !important;
+                width: auto !important;
             }
         }
 
-        /**
-   * Avoid browser level font resizing.
-   * 1. Windows Mobile
-   * 2. iOS / OSX
-   */
-        body,
-        table,
-        td,
-        a {
-            -ms-text-size-adjust: 100%;
-            /* 1 */
-            -webkit-text-size-adjust: 100%;
-            /* 2 */
-        }
+        @media all {
+            .ExternalClass {
+                width: 100%;
+            }
 
-        /**
-   * Remove extra space added to tables and cells in Outlook.
-   */
-        table,
-        td {
-            mso-table-rspace: 0pt;
-            mso-table-lspace: 0pt;
-        }
+            .ExternalClass,
+            .ExternalClass p,
+            .ExternalClass span,
+            .ExternalClass font,
+            .ExternalClass td,
+            .ExternalClass div {
+                line-height: 100%;
+            }
 
-        /**
-   * Better fluid images in Internet Explorer.
-   */
-        img {
-            -ms-interpolation-mode: bicubic;
-        }
+            .apple-link a {
+                color: inherit !important;
+                font-family: inherit !important;
+                font-size: inherit !important;
+                font-weight: inherit !important;
+                line-height: inherit !important;
+                text-decoration: none !important;
+            }
 
-        /**
-   * Remove blue links for iOS devices.
-   */
-        a[x-apple-data-detectors] {
-            font-family: inherit !important;
-            font-size: inherit !important;
-            font-weight: inherit !important;
-            line-height: inherit !important;
-            color: inherit !important;
-            text-decoration: none !important;
-        }
+            #MessageViewBody a {
+                color: inherit;
+                text-decoration: none;
+                font-size: inherit;
+                font-family: inherit;
+                font-weight: inherit;
+                line-height: inherit;
+            }
 
-        /**
-   * Fix centering issues in Android 4.4.
-   */
-        div[style*="margin: 16px 0;"] {
-            margin: 0 !important;
-        }
+            .btn-primary table td:hover {
+                background-color: #34495e !important;
+            }
 
-        body {
-            width: 100% !important;
-            height: 100% !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        /**
-   * Collapse table borders to avoid space between cells.
-   */
-        table {
-            border-collapse: collapse !important;
-        }
-
-        a {
-            color: black;
-        }
-
-        img {
-            height: auto;
-            line-height: 100%;
-            text-decoration: none;
-            border: 0;
-            outline: none;
+            .btn-primary a:hover {
+                background-color: #34495e !important;
+                border-color: #34495e !important;
+            }
         }
 
     </style>
-
 </head>
 
-<body style="background-color: #e9ecef;">
-
-    <!-- start preheader -->
-    <div class="preheader"
-        style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-        A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
-    </div>
-    <!-- end preheader -->
-
-    <!-- start body -->
-    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-
-        <!-- start logo -->
+<body
+    style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+    <span class="preheader"
+        style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">
+        This is preheader text. Some clients will show this text as a preview.</span>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body"
+        style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f6f6f6; width: 100%;"
+        width="100%" bgcolor="#f6f6f6">
         <tr>
-            <td align="center" bgcolor="#e9ecef">
-                <!--[if (gte mso 9)|(IE)]>
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
-        <tr>
-        <td align="center" valign="top" width="600">
-        <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                    <tr>
-                        <td align="center" valign="top" style="padding: 36px 24px;">
-                            <a href="https://sendgrid.com" target="_blank" rel="noopener noreferrer"
-                                style="display: inline-block;">
-                                <img src="https://i.ibb.co/BGDJ6R4/download.png" alt="Logo" border="0" width="48"
-                                    style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-                <!--[if (gte mso 9)|(IE)]>
-        </td>
-        </tr>
-        </table>
-        <![endif]-->
+            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
+            <td class="container"
+                style="font-family: sans-serif; font-size: 14px; vertical-align: top; display: block; max-width: 580px; padding: 10px; width: 580px; margin: 0 auto;"
+                width="580" valign="top">
+                <div class="content"
+                    style="box-sizing: border-box; display: block; margin: 0 auto; max-width: 580px; padding: 10px;">
+
+                    <!-- START CENTERED WHITE CONTAINER -->
+                    <table role="presentation" class="main"
+                        style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; border-radius: 3px; width: 100%;"
+                        width="100%">
+
+                        <!-- START MAIN CONTENT AREA -->
+                        <tr>
+                            <td class="wrapper"
+                                style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;"
+                                valign="top">
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                                    style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;"
+                                    width="100%">
+                                    <tr>
+                                        <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;"
+                                            valign="top">
+                                            <p
+                                                style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+                                                Welcome to Blog</p>
+                                            <p
+                                                style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+                                                hi {{ $user->name }} , welcome from our app</p>
+                                            <p
+                                                style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+                                                Now that your account is ready and you can enjoy posting ur cool idea
+                                                with us or surf other people's post.Thanks for joining us . May the
+                                                force be with you , {{ $user->name }}</p>
+
+                                            <p
+                                                style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
+                                                Regards, <br>
+                                                OJT Blog App
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- END MAIN CONTENT AREA -->
+                    </table>
+                    <!-- END CENTERED WHITE CONTAINER -->
+
+                    <!-- START FOOTER -->
+                    <div class="footer" style="clear: both; margin-top: 10px; text-align: center; width: 100%;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                            style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;"
+                            width="100%">
+                            <tr>
+                                <td class="content-block"
+                                    style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;"
+                                    valign="top" align="center">
+                                    <span class="apple-link"
+                                        style="color: #999999; font-size: 12px; text-align: center;">Company Inc, 3
+                                        Abbey Road, San Francisco CA 94102</span>
+                                    <br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif"
+                                        style="text-decoration: underline; color: #999999; font-size: 12px; text-align: center;">Unsubscribe</a>.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="content-block powered-by"
+                                    style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center;"
+                                    valign="top" align="center">
+                                    Powered by <a href="http://htmlemail.io"
+                                        style="color: #999999; font-size: 12px; text-align: center; text-decoration: none;">HTMLemail</a>.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- END FOOTER -->
+
+                </div>
             </td>
+            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;" valign="top">&nbsp;</td>
         </tr>
-        <!-- end logo -->
-
-        <!-- start hero -->
-        <tr>
-            <td align="center" bgcolor="#e9ecef">
-                <!--[if (gte mso 9)|(IE)]>
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
-        <tr>
-        <td align="center" valign="top" width="600">
-        <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                    <tr>
-                        <td bgcolor="#ffffff" align="left">
-                            <img src="./img/welcome-hero.jpg" alt="Welcome" width="600"
-                                style="display: block; width: 100%; max-width: 100%;">
-                        </td>
-                    </tr>
-                </table>
-                <!--[if (gte mso 9)|(IE)]>
-        </td>
-        </tr>
-        </table>
-        <![endif]-->
-            </td>
-        </tr>
-        <!-- end hero -->
-
-        <!-- start copy block -->
-        <tr>
-            <td align="center" bgcolor="#e9ecef">
-                <!--[if (gte mso 9)|(IE)]>
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
-        <tr>
-        <td align="center" valign="top" width="600">
-        <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-
-                    <!-- start copy -->
-                    <tr>
-                        <td bgcolor="#ffffff" align="left"
-                            style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                            <h1 style="margin: 0 0 12px; font-size: 32px; font-weight: 400; line-height: 48px;">Welcome,
-                                Jason!</h1>
-                            <p style="margin: 0;">Thank you for signing up with Paste. We strive to produce high quality
-                                email templates that you can use for your transactional or marketing needs.</p>
-                        </td>
-                    </tr>
-                    <!-- end copy -->
-
-                    <!-- start button -->
-                    <tr>
-                        <td align="left" bgcolor="#ffffff">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td align="center" bgcolor="#ffffff" style="padding: 12px;">
-                                        <table border="0" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                                                    <a href="https://sendgrid.com" target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Do
-                                                        Something Sweet</a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <!-- end button -->
-
-                    <!-- start copy -->
-                    <tr>
-                        <td align="left" bgcolor="#ffffff"
-                            style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
-                            <p style="margin: 0;">Cheers,<br> Paste</p>
-                        </td>
-                    </tr>
-                    <!-- end copy -->
-
-                </table>
-                <!--[if (gte mso 9)|(IE)]>
-        </td>
-        </tr>
-        </table>
-        <![endif]-->
-            </td>
-        </tr>
-        <!-- end copy block -->
-
-        <!-- start footer -->
-        <tr>
-            <td align="center" bgcolor="#e9ecef" style="padding: 24px;">
-                <!--[if (gte mso 9)|(IE)]>
-        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
-        <tr>
-        <td align="center" valign="top" width="600">
-        <![endif]-->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-
-                    <!-- start permission -->
-                    <tr>
-                        <td align="center" bgcolor="#e9ecef"
-                            style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">You received this email because we received a request for
-                                [type_of_action] for your account. If you didn't request [type_of_action] you can safely
-                                delete this email.</p>
-                        </td>
-                    </tr>
-                    <!-- end permission -->
-
-                    <!-- start unsubscribe -->
-                    <tr>
-                        <td align="center" bgcolor="#e9ecef"
-                            style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">To stop receiving these emails, you can <a href="https://sendgrid.com"
-                                    target="_blank" rel="noopener noreferrer">unsubscribe</a> at any time.</p>
-                            <p style="margin: 0;">Paste 1234 S. Broadway St. City, State 12345</p>
-                        </td>
-                    </tr>
-                    <!-- end unsubscribe -->
-
-                </table>
-                <!--[if (gte mso 9)|(IE)]>
-        </td>
-        </tr>
-        </table>
-        <![endif]-->
-            </td>
-        </tr>
-        <!-- end footer -->
-
     </table>
-    <!-- end body -->
-
 </body>
 
 </html>

@@ -43,6 +43,11 @@ class UserDao implements UserDaoInterface
         ]);
     }
 
+    public function getUserById($userId)
+    {
+        return User::find($userId);
+    }
+
     public function updateUserPassword($email, $password)
     {
         return User::where('email', $email)->update(['password' => Hash::make($password)]);
@@ -50,6 +55,6 @@ class UserDao implements UserDaoInterface
 
     public function userVerified($userId)
     {
-        return User::where('id', $userId)->update(['verified' => true]);
+        return $user = User::where('id', $userId)->update(['verified' => true]);
     }
 }

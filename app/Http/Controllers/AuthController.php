@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Services\UserServiceInterface;
 use App\Mail\ResetPasswordMail;
 use App\Mail\VerifyEmail;
+use App\Mail\WelcomeMail;
 use App\Models\User;
 use Carbon\Carbon;
 use DB;
@@ -113,10 +114,11 @@ class AuthController extends Controller
         ];
         $verification = $this->selectFromTable('verify_users', $data);
         if (!$verification) {
-            dd('aa');
             return redirect()->route("auth.wait-verification");
         }
         $this->userService->userVerified($userId);
+        $user = $this->userService->getUserById($userId);
+        Mail::to($user->email)->send(new WelcomeMail($user));
         $this->deleteColFromTable('verify_users', $data);
         return redirect()->route('posts.index');
     }
