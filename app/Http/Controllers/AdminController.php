@@ -18,7 +18,11 @@ class AdminController extends Controller
     public function index()
     {
         $posts = $this->postService->getAllPostsForAdmin(20);
+        return view('admin.index', compact('posts'));
+    }
+    public function showUser()
+    {
         $users = $this->userService->getAllUsers();
-        return view('admin.index', compact('posts', 'users'));
+        return view('admin.user', compact('users'));
     }
 }

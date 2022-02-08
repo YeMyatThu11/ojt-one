@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="d-flex justify-content-between flex-wrap post-index">
+    <div class="d-flex justify-content-start flex-wrap post-index">
         @foreach ($posts as $post)
             <div class="card shadow  my-4 mx-3 align-self-start card-container">
                 <div class="card-body d-flex flex-column">
                     <div>
                         <h5 class="card-title">
-                            {{ $post->title }}
+                            {{ Str::limit($post->title, 23, $end = ' ...') }}
                             @if ($post->public_post == 0)
                                 <i class="fas fa-lock private-post-icon"></i>
                             @endif

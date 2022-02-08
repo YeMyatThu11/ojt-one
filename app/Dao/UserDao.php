@@ -28,7 +28,7 @@ class UserDao implements UserDaoInterface
         return $user->delete();
     }
 
-    public function promoteUser($user)
+    public function changeRole($user)
     {
         $role = $user->role == 1 ? $user->role + 1 : $user->role - 1;
         return $user->update(['role' => $role]);
@@ -41,5 +41,15 @@ class UserDao implements UserDaoInterface
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function updateUserPassword($email, $password)
+    {
+        return User::where('email', $email)->update(['password' => Hash::make($password)]);
+    }
+
+    public function userVerified($userId)
+    {
+        return User::where('id', $userId)->update(['verified' => true]);
     }
 }

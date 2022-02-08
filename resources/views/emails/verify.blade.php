@@ -135,11 +135,12 @@
                                             valign="top">
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                                Hi there,</p>
+                                                Hello {{ $user->name }}</p>
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                                You are receiving this email because we received a password reset
-                                                request for your account</p>
+                                                Thanks for joining to our Blog apps.Please verify your email by clicking
+                                                the button described below .Enjoy our app and have a great day!
+                                            </p>
                                             <table role="presentation" border="0" cellpadding="0" cellspacing="0"
                                                 class="btn btn-primary"
                                                 style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;"
@@ -160,7 +161,7 @@
                                                                             <a href="{{ $url }}"
                                                                                 target="_blank"
                                                                                 style="border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #3498db; border-color: #3498db; color: #ffffff;">
-                                                                                Reset Password
+                                                                                Verify Email
                                                                             </a>
                                                                         </td>
                                                                     </tr>
@@ -172,7 +173,7 @@
                                             </table>
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                                If you did not request a password reset, no further action is required
+                                                May the force be with you {{ $user->name }}
                                             </p>
                                             <p
                                                 style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verify'])->group(function () {
     Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('create', [PostController::class, 'create'])->name('create');
         Route::delete('{post}', [PostController::class, 'destroy'])->middleware('owner')->name('destroy');
@@ -44,12 +44,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{user}/reset_password_form', [UserController::class, 'resetPWForm'])->name('resetPWForm');
         Route::put('{user}/reset_password', [UserController::class, 'resetPW'])->name('resetPW');
         Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
-        Route::put('{user}/promote', [UserController::class, 'promote'])->name('promote');
+        Route::put('{user}/changeRole', [UserController::class, 'changeRole'])->name('changeRole');
     });
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('dashboard/user', [AdminController::class, 'showUser'])->name('admin.dashboard.user');
 });
 
 Route::name('auth.')->group(function () {
@@ -61,8 +62,11 @@ Route::name('auth.')->group(function () {
     Route::get('forgot-password', [AuthController::class, 'forgotPasswordForm'])->name('forgot-password-form')->middleware('guest');
     Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password')->middleware('guest');
     Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('reset-password')->middleware('guest');
+    Route::get('reset-password/{token}', [AuthController::class, 'resetPasswordForm'])->name('reset-password-form');
+    Route::get('wait-verification', [AuthController::class, 'waitVerificationForm'])->name('wait-verification');
+    Route::get('verify-mail/{token}/{userId}', [AuthController::class, 'verifyMail'])->name('verify-mail');
 });
-Route::get('reset-password/{token}', [AuthController::class, 'resetPasswordForm'])->name('password.reset');
+
 Route::get('/', [PostController::class, 'index']);
 Route::get('/home', function () {
     return redirect()->route('posts.index');

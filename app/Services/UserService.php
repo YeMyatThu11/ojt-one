@@ -29,13 +29,21 @@ class UserService implements UserServiceInterface
     {
         return $this->userDao->deleteUser($user);
     }
-    public function promoteUser($user)
+    public function changeRole($user)
     {
-        return $this->userDao->promoteUser($user);
+        return $this->userDao->changeRole($user);
     }
     public function createUser($data)
     {
         return $this->userDao->createUser($data);
+    }
+    public function updateUserPassword($email, $password)
+    {
+        return $this->userDao->updateUserPassword($email, $password);
+    }
+    public function userVerified($userId)
+    {
+        return $this->userDao->userVerified($userId);
     }
 
 }

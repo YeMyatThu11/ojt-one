@@ -45,7 +45,7 @@
                         onclick="clickHandler({{ $post->id }})">
                         <div class="card-body">
                             <h5 class="card-title">
-                                {{ $post->title }}
+                                {{ Str::limit($post->title, 23, $end = ' ...') }}
                                 @if ($post->public_post == 0)
                                     <i class="fas fa-lock private-post-icon"></i>
                                 @endif

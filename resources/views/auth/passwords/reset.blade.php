@@ -8,6 +8,14 @@
                     <div class="card-header">{{ __('Reset Password') }}</div>
 
                     <div class="card-body">
+                        @foreach ($errors->all() as $err)
+                            <p class="alert alert-danger" role="alert">{{ $err }}</p>
+                        @endforeach
+                        @if (session('error'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('auth.reset-password') }}">
                             @csrf
 

@@ -57,9 +57,9 @@ class UserController extends Controller
 
     }
 
-    public function promote(User $user)
+    public function changeRole(User $user)
     {
-        $this->userService->promoteUser($user);
+        $this->userService->changeRole($user);
         return back();
     }
 }

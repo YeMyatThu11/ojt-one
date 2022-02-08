@@ -83,7 +83,7 @@
                                     </a>
                                     <a class="dropdown-item" href="{{ route('auth.logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                            document.getElementById('logout-form').submit();">
+                                                                                                                                document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"
@@ -157,7 +157,7 @@
                 `Are you sure about changing  ${username}'s role to ${userRole}?`);
         });
         $(document).on("click", ".action-promote-btn", () => {
-            $('.user-promote-form').attr("action", `/user/${dataId}/promote`);
+            $('.user-promote-form').attr("action", `/user/${dataId}/changeRole`);
             $('.user-promote-form').submit();
         });
         $(document).on("click", ".btn-delete", function() {
