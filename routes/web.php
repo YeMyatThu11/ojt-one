@@ -68,7 +68,7 @@ Route::name('auth.')->group(function () {
     Route::get('verify-mail/{token}/{userId}', [AuthController::class, 'verifyMail'])->name('verify-mail');
 });
 
-Route::get('/', [PostController::class, 'index']);
+Route::get('/', [AuthController::class, 'rediectBasedOnRole']);
 Route::get('/home', function () {
     return redirect()->route('posts.index');
 });

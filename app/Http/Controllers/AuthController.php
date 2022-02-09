@@ -149,7 +149,7 @@ class AuthController extends Controller
         return view('auth.passwords.reset', ['token' => $token]);
     }
 
-    private function rediectBasedOnRole()
+    public function rediectBasedOnRole()
     {
         if (Auth()->user()->role == 1) {
             return redirect()->route('admin.dashboard');

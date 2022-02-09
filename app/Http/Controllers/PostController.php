@@ -74,6 +74,9 @@ class PostController extends Controller
     public function search(Request $request)
     {
         $term = $request->searchTerm;
+        if (is_null($term)) {
+            return $request->redirect ? redirect()->route('admin.dashboard') : redirect()->route('posts.index');
+        }
         $posts = $this->postService->searchPosts($term);
         return is_null($request->redirect) ? view('posts.index', compact('posts', 'term')) : view($request->redirect, compact('posts', 'term'));
     }
