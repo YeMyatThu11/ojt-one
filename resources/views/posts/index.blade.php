@@ -7,13 +7,11 @@
                 <div class="card-body d-flex flex-column">
                     <div>
                         <h5 class="card-title post-title" style="padding-right:40px">
-                            {{-- {{ Str::limit($post->title, 23, $end = ' ...') }} --}}
                             {{ $post->title }}
                             @if ($post->public_post == 0)
                                 <i class="fas fa-lock private-post-icon"></i>
                             @endif
                         </h5>
-
                         @if ($post->user->id === Auth::id() || (Auth()->user() ? Auth()->user()->role == 1 : false))
                             <div class="action-btn-wrapper">
                                 <a class="action-btn" href="{{ route('posts.edit', $post->id) }}">
@@ -22,7 +20,6 @@
                                     class=" action-btn btn-delete" data-item="{{ $post->id }}" type="submit">
                                     <i class="fas fa-trash del-icon"></i>
                                 </a>
-
                             </div>
                         @endif
 
@@ -45,9 +42,11 @@
                 </div>
             </div>
         @endforeach
-
     </div>
-    {{ $posts->links('vendor.pagination.cust_pagination') }}
+    @if (method_exists($posts, 'links'))
+        {{ $posts->links('vendor.pagination.cust_pagination') }}
+    @endif
+
     <script>
         function clickHandler(id) {
             console.log('aa', id);

@@ -9,12 +9,21 @@
 
     <table class="table mt-5">
         <thead class="bg-secondary">
+
             <tr class="table-title">
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Latest Update</th>
-                <th scope="col">Action</th>
+                <th scope="col" style="padding-bottom:13px;">#</th>
+                <th scope="col">
+                    <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('posts.search') }}">
+                        @csrf
+                        <input type="hidden" name="redirect" value="admin.index">
+                        <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="searchTerm"
+                            value="{{ isset($term) ? $term : '' }}" type="search" placeholder="Search Posts"
+                            aria-label="Search">
+                    </form>
+                </th>
+                <th scope="col" style="padding-bottom:13px;">Author</th>
+                <th scope="col" style="padding-bottom:13px;">Latest Update</th>
+                <th scope="col" style="padding-bottom:13px;">Action</th>
             </tr>
         </thead>
         <tbody>

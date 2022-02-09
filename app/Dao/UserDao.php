@@ -3,6 +3,7 @@ namespace app\Dao;
 
 use App\Contracts\Dao\UserDaoInterface;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class UserDao implements UserDaoInterface
@@ -55,6 +56,10 @@ class UserDao implements UserDaoInterface
 
     public function userVerified($userId)
     {
-        return $user = User::where('id', $userId)->update(['verified' => true]);
+        return $user = User::where('id', $userId)->update(
+            [
+                'verified' => true,
+                'email_verified_at' => Carbon::now(),
+            ]);
     }
 }

@@ -71,6 +71,13 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
+    public function search(Request $request)
+    {
+        $term = $request->searchTerm;
+        $posts = $this->postService->searchPosts($term);
+        return is_null($request->redirect) ? view('posts.index', compact('posts', 'term')) : view($request->redirect, compact('posts', 'term'));
+    }
+
     public function destroy(Post $post)
     {
         $this->postService->deletePost($post);

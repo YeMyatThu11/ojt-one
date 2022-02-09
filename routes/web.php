@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verify'])->group(function () {
         Route::put('{post}', [PostController::class, 'update'])->name('update');
         Route::get('{post}/edit', [PostController::class, 'edit'])->middleware('owner')->name('edit');
         Route::post('store', [PostController::class, 'store'])->name('store');
+        Route::post('search', [PostController::class, 'search'])->name('search');
     });
     Route::prefix('categories')->name('categories.')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');

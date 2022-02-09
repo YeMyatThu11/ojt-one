@@ -37,4 +37,14 @@ class PostDao implements PostDaoInterface
         return Post::orderBy('updated_at', 'desc')->paginate($paginateLimit);
     }
 
+    public function searchPosts($term)
+    {
+        return Post::where('title', 'like', '%' . $term . '%')
+            ->orWhereHas('user', function ($q) use ($term) {
+                return $q->where('name', 'LIKE', '%' . $term . '%');
+            })
+            ->orWhereHas('categories', function ($q) use ($term) {
+                return $q->where('name', 'LIKE', '%' . $term . '%');
+            })->paginate(12);
+    }
 }
