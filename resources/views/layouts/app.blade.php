@@ -29,9 +29,10 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                @if (Request::is('posts'))
+                @if (Request::segment(1) == 'posts')
                     <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('posts.search') }}">
                         @csrf
+                        <input type="hidden" name="redirect" value="posts.index">
                         <input class="form-control mr-sm-2" name="searchTerm" value="{{ isset($term) ? $term : '' }}"
                             type="search" placeholder="Search Posts" aria-label="Search">
                     </form>
@@ -65,7 +66,7 @@
                         @else
                             @if (Auth::user()->role == 1)
                                 <li class="nav-item"><a class="nav-link"
-                                        href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                                        href="{{ route('admin.index') }}">Dashboard</a></li>
                             @endif
                             <li class="nav-item"><a class="nav-link"
                                     href="{{ route('posts.index') }}">Home</a>
@@ -86,7 +87,7 @@
                                     </a>
                                     <a class="dropdown-item" href="{{ route('auth.logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"

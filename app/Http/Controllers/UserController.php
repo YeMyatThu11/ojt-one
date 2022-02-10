@@ -6,6 +6,7 @@ use App\Contracts\Services\UserServiceInterface;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -29,7 +30,7 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
         ]);
         $this->userService->updateUserProfile($data, $user);
         return redirect()->route('user.profile', $user->id);

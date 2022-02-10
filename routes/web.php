@@ -28,7 +28,7 @@ Route::middleware(['auth', 'verify'])->group(function () {
         Route::get('{post}/edit', [PostController::class, 'edit'])->middleware('owner')->name('edit');
         Route::post('store', [PostController::class, 'store'])->name('store');
         Route::post('search/', [PostController::class, 'search'])->name('search');
-        Route::get('search/{term}', [PostController::class, 'showSearch'])->name('show-search');
+        Route::get('search/{term}/{redirect}', [PostController::class, 'showSearch'])->name('show-search');
     });
     Route::prefix('categories')->name('categories.')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');
@@ -51,8 +51,8 @@ Route::middleware(['auth', 'verify'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('dashboard/user', [AdminController::class, 'showUser'])->name('admin.dashboard.user');
+    Route::get('dashboard', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('dashboard/user', [AdminController::class, 'showUser'])->name('admin.index.user');
 });
 
 Route::name('auth.')->group(function () {

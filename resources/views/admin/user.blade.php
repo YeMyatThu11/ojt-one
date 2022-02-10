@@ -2,8 +2,8 @@
 @section('content')
     <nav>
         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-            <a href="{{ route('admin.dashboard') }}" class="nav-link " style="color: #000;">Posts</a>
-            <a href="{{ route('admin.dashboard.user') }}" style="color: #000" class="nav-link active">Users</a>
+            <a href="{{ route('admin.index') }}" class="nav-link " style="color: #000;">Posts</a>
+            <a href="{{ route('admin.index.user') }}" style="color: #000" class="nav-link active">Users</a>
         </div>
     </nav>
 
