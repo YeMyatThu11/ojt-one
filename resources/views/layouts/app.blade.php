@@ -30,15 +30,11 @@
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 @if (Request::is('posts'))
-                    <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('posts.search') }}">
-                        @csrf
+                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('posts.search') }}">
                         <input class="form-control mr-sm-2" name="searchTerm" value="{{ isset($term) ? $term : '' }}"
                             type="search" placeholder="Search Posts" aria-label="Search">
                     </form>
                 @endif
-
-
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -64,7 +60,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('auth.registerForm') }}">Register</a>
                                 </li>
-
                             @endif
                         @else
                             @if (Auth::user()->role == 1)
@@ -90,7 +85,7 @@
                                     </a>
                                     <a class="dropdown-item" href="{{ route('auth.logout') }}"
                                         onclick="event.preventDefault();
-                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                        document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('auth.logout') }}" method="POST"

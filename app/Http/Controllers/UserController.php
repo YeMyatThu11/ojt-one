@@ -29,7 +29,7 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string',
-            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
         ]);
         $this->userService->updateUserProfile($data, $user);
         return redirect()->route('user.profile', $user->id);

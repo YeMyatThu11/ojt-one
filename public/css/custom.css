@@ -84,6 +84,14 @@ a {
     padding-right: 40px;
 }
 
+.admin-table-action {
+    min-width: 100px;
+}
+
+.user-table-action {
+    min-width: 140px;
+}
+
 .show-card-container {
     width: 100% !important;
     min-height: 190px;

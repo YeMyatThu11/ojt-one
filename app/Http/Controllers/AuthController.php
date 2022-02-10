@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Services\TokenServiceInterface;
 use App\Contracts\Services\UserServiceInterface;
 use App\Mail\ResetPasswordMail;
 use App\Mail\VerifyEmail;
 use App\Mail\WelcomeMail;
 use App\Models\User;
 use Carbon\Carbon;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -18,9 +18,11 @@ use Session;
 class AuthController extends Controller
 {
     private $userService;
-    public function __construct(UserServiceInterface $userService)
+    private $tokenService;
+    public function __construct(UserServiceInterface $userService, TokenServiceInterface $tokenService)
     {
         $this->userService = $userService;
+        $this->tokenService = $tokenService;
     }
 
     public function index()
@@ -64,11 +66,12 @@ class AuthController extends Controller
         $user = $this->userService->createUser($data);
         Auth::login($user);
         $token = Str::random(64);
-        DB::table('verify_users')->insert([
+        $data = [
             'user_id' => $user->id,
             'token' => $token,
             'created_at' => Carbon::now(),
-        ]);
+        ];
+        $this->tokenService->addTokenToTable('verify_users', $data);
         Mail::to($user->email)->send(new VerifyEmail($token, $user));
         return redirect()->route("auth.wait-verification");
     }
@@ -77,11 +80,12 @@ class AuthController extends Controller
     {
         $request->validate(['email' => 'required|email']);
         $token = Str::random(64);
-        DB::table('password_resets')->insert([
+        $data = [
             'email' => $request->email,
             'token' => $token,
             'created_at' => Carbon::now(),
-        ]);
+        ];
+        $this->tokenService->addTokenToTable('password_resets', $data);
         Mail::to($request->email)->send(new ResetPasswordMail($token));
         return back()->with('status', 'We have e-mailed your password reset link!');
     }
@@ -97,12 +101,12 @@ class AuthController extends Controller
             'email' => $request->email,
             'token' => $request->token,
         ];
-        $updatePassword = $this->selectFromTable('password_resets', $data);
+        $updatePassword = $this->tokenService->findTokenFromTable('password_resets', $data);
         if (!$updatePassword) {
             return back()->withInput()->with('error', 'Invalid token!');
         }
         $this->userService->updateUserPassword($request->email, $request->password);
-        $this->deleteColFromTable('password_resets', $data);
+        $this->tokenService->deleteTokenFromTable('password_resets', $data);
         return redirect()->route('auth.login')->with('status', 'Your password has been changed!');
     }
 
@@ -112,14 +116,14 @@ class AuthController extends Controller
             'user_id' => $userId,
             'token' => $token,
         ];
-        $verification = $this->selectFromTable('verify_users', $data);
+        $verification = $this->tokenService->findTokenFromTable('verify_users', $data);
         if (!$verification) {
             return redirect()->route("auth.wait-verification");
         }
         $this->userService->userVerified($userId);
         $user = $this->userService->getUserById($userId);
         Mail::to($user->email)->send(new WelcomeMail($user));
-        $this->deleteColFromTable('verify_users', $data);
+        $this->tokenService->deleteTokenFromTable('verify_users', $data);
         return redirect()->route('posts.index');
     }
 
@@ -151,21 +155,10 @@ class AuthController extends Controller
 
     public function rediectBasedOnRole()
     {
-        if (Auth()->user()->role == 1) {
+        if (Auth::check() && Auth()->user()->role == 1) {
             return redirect()->route('admin.dashboard');
         } else {
             return redirect()->route('posts.index');
         }
     }
-
-    private function selectFromTable($tableName, $data)
-    {
-        return DB::table($tableName)->where($data)->first();
-    }
-
-    private function deleteColFromTable($tableName, $data)
-    {
-        return DB::table($tableName)->where($data)->delete();
-    }
-
 }

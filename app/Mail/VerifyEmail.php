@@ -30,10 +30,8 @@ class VerifyEmail extends Mailable
      */
     public function build()
     {
-        $token = $this->token;
         $user = $this->user;
-
-        $url = env('APP_URL') . '/verify-mail/' . $this->token . '/' . $user->id;
-        return $this->view('emails.verify', compact('token', 'user', 'url'));
+        $url = route('auth.verify-mail', ['token' => $this->token, 'userId' => $this->user->id]);
+        return $this->view('emails.verify', compact('user', 'url'));
     }
 }

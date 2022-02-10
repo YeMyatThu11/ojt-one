@@ -24,7 +24,7 @@
                     <td class="btn-promote">{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role == 2 ? 'User' : 'Admin' }}</td>
-                    <td class="d-flex ">
+                    <td class="user-table-action">
                         <a class="action-btn" href="{{ route('user.edit', $user->id) }}">
                             <i class="fas fa-edit edit-icon"></i>
                         </a>

@@ -34,7 +34,7 @@
                     <td><a class="author-href-txt" href="{{ route('user.profile', $post->user->id) }}">
                             {{ $post->user->name }}</a></td>
                     <td>{{ date('F j, Y, g:i a', strtotime($post->updated_at)) }}</td>
-                    <td class="d-flex ">
+                    <td class="admin-table-action">
                         <a class="action-btn" href="{{ route('posts.edit', $post->id) }}">
                             <i class="fas fa-edit edit-icon"></i></a>
                         <a class="action-btn" href="{{ route('posts.show', $post->id) }}">

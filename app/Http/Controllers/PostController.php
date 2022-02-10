@@ -7,6 +7,7 @@ use App\Contracts\Services\PostServiceInterface;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class PostController extends Controller
 {
@@ -73,7 +74,8 @@ class PostController extends Controller
 
     public function search(Request $request)
     {
-        $term = $request->searchTerm;
+        $term = $request('searchTerm');
+        dd($term);
         if (is_null($term)) {
             return $request->redirect ? redirect()->route('admin.dashboard') : redirect()->route('posts.index');
         }

@@ -8,8 +8,7 @@ class CategoryDao implements CategoryDaoInterface
 {
     public function getAllCategories()
     {
-        $categories = Category::all();
-        return $categories;
+        return Category::all();
     }
 
     public function createCategory($data)

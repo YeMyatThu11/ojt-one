@@ -28,7 +28,7 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
-        $url = env('APP_URL') . '/reset-password/' . $this->token;
+        $url = route('auth.reset-password-form', $this->token);
         return $this->view('emails.reset', compact('url'));
     }
 }
