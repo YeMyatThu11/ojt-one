@@ -49,5 +49,9 @@ class UserService implements UserServiceInterface
     {
         return $this->userDao->getUserById($userId);
     }
+    public function searchUsers($term)
+    {
+        return $this->userDao->searchUsers($term);
+    }
 
 }

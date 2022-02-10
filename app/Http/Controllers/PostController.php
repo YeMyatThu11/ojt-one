@@ -75,7 +75,7 @@ class PostController extends Controller
     public function search(Request $request)
     {
         $term = $request->searchTerm;
-        $redirect = $request->redirect ? $request->redirect : 'posts.index';
+        $redirect = $request->redirect;
         if (is_null($term)) {
             return redirect()->route($redirect);
         }

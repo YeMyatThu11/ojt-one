@@ -62,4 +62,9 @@ class UserDao implements UserDaoInterface
                 'email_verified_at' => Carbon::now(),
             ]);
     }
+
+    public function searchUsers($term)
+    {
+        return User::where('name', 'like', '%' . $term . '%')->get();
+    }
 }

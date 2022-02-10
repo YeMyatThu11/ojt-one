@@ -11,7 +11,14 @@
         <thead class="bg-secondary">
             <tr class="table-title">
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
+                <th scope="col">
+                    <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('user.search') }}">
+                        @csrf
+                        <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="searchTerm"
+                            value="{{ isset($term) ? $term : '' }}" type="search" placeholder="Search Users"
+                            aria-label="Search">
+                    </form>
+                </th>
                 <th scope="col">Email</th>
                 <th scope="col">Role</th>
                 <th scope="col">Action</th>

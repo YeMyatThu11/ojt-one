@@ -40,6 +40,8 @@ Route::middleware(['auth', 'verify'])->group(function () {
         Route::post('store', [CategoryController::class, 'store'])->name('store');
     });
     Route::get('{user}/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::post('user/search/', [UserController::class, 'searchUser'])->name('user.search');
+    Route::get('user/search/{term}', [UserController::class, 'showSearch'])->name('user.show-search');
     Route::middleware(['user'])->prefix('user')->name('user.')->group(function () {
         Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('user');
         Route::put('{user}', [UserController::class, 'update'])->name('update');
