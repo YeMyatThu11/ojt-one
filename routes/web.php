@@ -41,8 +41,8 @@ Route::middleware(['auth', 'verify'])->group(function () {
     Route::middleware(['user'])->prefix('user')->name('user.')->group(function () {
         Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit')->middleware('user');
         Route::put('{user}', [UserController::class, 'update'])->name('update');
-        Route::get('/{user}/reset_password_form', [UserController::class, 'resetPWForm'])->name('resetPWForm');
-        Route::put('{user}/reset_password', [UserController::class, 'resetPW'])->name('resetPW');
+        Route::get('/{user}/update_password_form', [UserController::class, 'updatePWForm'])->name('updatePWForm');
+        Route::put('{user}/update_password', [UserController::class, 'updatePW'])->name('updatePW');
         Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
         Route::put('{user}/changeRole', [UserController::class, 'changeRole'])->name('changeRole');
     });

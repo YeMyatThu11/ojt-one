@@ -2,25 +2,11 @@
     <div class="pagination">
         <ul class="pager">
 
-            {{-- @if ($paginator->onFirstPage())
-                <li class="disabled"><span class="pgn-icon">
-                        < </span>
-                </li>
-            @else
-                <li><a class="pagn-link pgn-icon" href="{{ $paginator->previousPageUrl() }}" rel="prev">
-                        < </a>
-                </li>
-            @endif --}}
-
-
-
             @foreach ($elements as $element)
 
                 @if (is_string($element))
                     <li class="disabled"><span>{{ $element }}</span></li>
                 @endif
-
-
 
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
@@ -33,13 +19,6 @@
                 @endif
             @endforeach
 
-
-
-            {{-- @if ($paginator->hasMorePages())
-                <li><a class="pagn-link pgn-icon" href="{{ $paginator->nextPageUrl() }}" rel="next">></a></li>
-            @else
-                <li class="disabled"><span class="pgn-icon">></span></li>
-            @endif --}}
         </ul>
     </div>
     <style>

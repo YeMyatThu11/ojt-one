@@ -10,17 +10,19 @@
     <table class="table mt-5">
         <thead class="bg-secondary">
             <tr class="table-title">
-                <th scope="col">#</th>
+                <th scope="col" style="padding-bottom:13px;">#</th>
                 <th scope="col">
-                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('admin.user') }}">
+                    {!! Form::open(['route' => 'admin.user', 'method' => 'get']) !!}
+                    <div class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="s"
                             value="{{ isset($term) ? $term : '' }}" type="search" placeholder="Search Users"
                             aria-label="Search">
-                    </form>
+                    </div>
+                    {!! Form::close() !!}
                 </th>
-                <th scope="col">Email</th>
-                <th scope="col">Role</th>
-                <th scope="col">Action</th>
+                <th scope="col" style="padding-bottom:13px;">Email</th>
+                <th scope="col" style="padding-bottom:13px;">Role</th>
+                <th scope="col" style="padding-bottom:13px;">Action</th>
             </tr>
         </thead>
         <tbody>

@@ -13,11 +13,13 @@
             <tr class="table-title">
                 <th scope="col" style="padding-bottom:13px;">#</th>
                 <th scope="col">
-                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('admin.posts') }}">
+                    {!! Form::open(['route' => 'admin.posts', 'method' => 'get']) !!}
+                    <div class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="s"
                             value="{{ isset($term) ? $term : '' }}" type="search" placeholder="Search Posts"
                             aria-label="Search">
-                    </form>
+                    </div>
+                    {!! Form::close() !!}
                 </th>
                 <th scope="col" style="padding-bottom:13px;">Author</th>
                 <th scope="col" style="padding-bottom:13px;">Latest Update</th>

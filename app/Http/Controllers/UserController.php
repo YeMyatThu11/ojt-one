@@ -36,12 +36,12 @@ class UserController extends Controller
         return redirect()->route('user.profile', $user->id);
     }
 
-    public function resetPWForm(User $user)
+    public function updatePWForm(User $user)
     {
         return view('user.resetpassword', compact('user'));
     }
 
-    public function resetPW(Request $request, User $user)
+    public function updatePW(Request $request, User $user)
     {
         $request->validate([
             'password' => 'required|confirmed|min:8',
