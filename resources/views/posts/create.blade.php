@@ -11,8 +11,8 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('posts.store') }}" method="post">
-        @csrf
+    {!! Form::open(['route' => 'posts.store']) !!}
+    <div>
         <input type="text" name="title" class="form-control mb-3" placeholder="Enter Title">
         <textarea type="text" name="content" rows="4" class="form-control mb-3" placeholder="Content"></textarea>
         <select class="form-select form-select-sm my-3 pb-select-box" name="public_post"
@@ -32,5 +32,6 @@
             <i class="fas fa-plus add-category-icon"></i>
         </a>
         <button class="btn btn-secondary float-end px-5">Submit</button>
-    </form>
+    </div>
+    {!! Form::close() !!}
 @endsection

@@ -11,9 +11,8 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('posts.update', $post->id) }}" method="post">
-        @csrf
-        @method('put')
+    {!! Form::open(['route' => ['posts.update', $post->id], 'method' => 'put']) !!}
+    <div>
         <input type="text" name="title" class="form-control mb-3" placeholder="Enter Title" value="{{ $post->title }}">
         <textarea type="text" name="content" rows="4" class="form-control mb-3"
             placeholder="Content">{{ $post->content }}</textarea>
@@ -34,5 +33,6 @@
             <i class="fas fa-plus add-category-icon"></i>
         </a>
         <button class="btn btn-primary float-end px-5">Submit</button>
-    </form>
+    </div>
+    {!! Form::close() !!}
 @endsection

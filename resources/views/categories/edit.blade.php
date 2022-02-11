@@ -11,10 +11,10 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('categories.update', $category->id) }}" method="post">
-        @csrf
-        @method('put')
+    {!! Form::open(['route' => ['categories.update', $category->id], 'method' => 'put']) !!}
+    <div>
         <input type="text" name="name" value="{{ $category->name }}" class="form-control mb-3" placeholder="Enter Name">
         <button class="btn btn-primary float-end px-5">Submit</button>
-    </form>
+    </div>
+    {!! Form::close() !!}
 @endsection

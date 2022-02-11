@@ -1,13 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    <div class="d-flex justify-content-center" style="background: #808080;padding:20px">
-        <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('posts.search') }}">
-            @csrf
-            <input type="hidden" name="redirect" value="posts.index">
-            <input style="width:400px;background:#fff" class="form-control mr-sm-2" name="searchTerm"
-                value="{{ isset($term) ? $term : '' }}" type="search" placeholder="Search Posts" aria-label="Search">
-        </form>
-    </div>
     <div class="d-flex  justify-content-lg-between justify-content-sm-center flex-wrap post-index">
         @foreach ($posts as $post)
             <div class="card shadow  my-4 mx-3 align-self-start card-container">

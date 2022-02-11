@@ -20,8 +20,11 @@ class PostController extends Controller
         $this->categoryService = $categoryService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->get('s')) {
+            return $this->searchPosts($request->get('s'));
+        }
         if (Auth::check()) {
             $posts = $this->postService->getPosts(Auth::id());
         } else {
@@ -57,7 +60,6 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         return $this->accessEditRoute($post);
-
     }
 
     public function update(Request $request, Post $post)
@@ -72,22 +74,6 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
-    public function search(Request $request)
-    {
-        $term = $request->searchTerm;
-        $redirect = $request->redirect;
-        if (is_null($term)) {
-            return redirect()->route($redirect);
-        }
-        return redirect()->route('posts.show-search', ['term' => $term, 'redirect' => $redirect]);
-    }
-
-    public function showSearch($term, $redirect)
-    {
-        $posts = $this->postService->searchPosts($term);
-        return is_null($redirect) ? view('posts.index', compact('posts', 'term')) : view($redirect, compact('posts', 'term'));
-    }
-
     public function destroy(Post $post)
     {
         $this->postService->deletePost($post);
@@ -100,5 +86,12 @@ class PostController extends Controller
         $allCatg = $this->categoryService->getAllCategories();
         $selectedCatg = $post->categories->pluck('id')->toArray();
         return view('posts.edit', compact('post', 'allCatg', 'selectedCatg'));
+    }
+
+    public function searchPosts($term)
+    {
+        $term = $term;
+        $posts = $this->postService->searchPosts($term, '12');
+        return view('posts.index', compact('posts', 'term'));
     }
 }

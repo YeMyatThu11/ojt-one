@@ -36,9 +36,9 @@ class PostService implements PostServiceInterface
     {
         return $this->postDao->getAllPostsForAdmin($paginateLimit);
     }
-    public function searchPosts($term)
+    public function searchPosts($term, $paginateLimit = 12)
     {
-        return $this->postDao->searchPosts($term);
+        return $this->postDao->searchPosts($term, $paginateLimit);
     }
 
 }

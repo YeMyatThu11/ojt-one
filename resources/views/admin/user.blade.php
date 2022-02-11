@@ -2,8 +2,8 @@
 @section('content')
     <nav>
         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-            <a href="{{ route('admin.index') }}" class="nav-link " style="color: #000;">Posts</a>
-            <a href="{{ route('admin.index.user') }}" style="color: #000" class="nav-link active">Users</a>
+            <a href="{{ route('admin.posts') }}" class="nav-link " style="color: #000;">Posts</a>
+            <a href="{{ route('admin.user') }}" style="color: #000" class="nav-link active">Users</a>
         </div>
     </nav>
 
@@ -12,9 +12,8 @@
             <tr class="table-title">
                 <th scope="col">#</th>
                 <th scope="col">
-                    <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('user.search') }}">
-                        @csrf
-                        <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="searchTerm"
+                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('admin.user') }}">
+                        <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="s"
                             value="{{ isset($term) ? $term : '' }}" type="search" placeholder="Search Users"
                             aria-label="Search">
                     </form>
@@ -55,4 +54,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $users->links('vendor.pagination.cust_pagination') }}
 @endsection

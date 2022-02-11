@@ -63,20 +63,4 @@ class UserController extends Controller
         $this->userService->changeRole($user);
         return back();
     }
-
-    public function searchUser(Request $request)
-    {
-        $term = $request->searchTerm;
-        if (is_null($term)) {
-            return redirect()->route('admin.index.user');
-        }
-
-        return redirect()->route('user.show-search', $term);
-    }
-
-    public function showSearch($term)
-    {
-        $users = $this->userService->searchUsers($term);
-        return view('admin.user', compact('users'));
-    }
 }

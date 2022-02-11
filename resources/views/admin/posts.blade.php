@@ -2,8 +2,8 @@
 @section('content')
     <nav>
         <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
-            <a href="{{ route('admin.index') }}" class="nav-link active" style="color: #000;">Posts</a>
-            <a href="{{ route('admin.index.user') }}" style="color: #000" class="nav-link">Users</a>
+            <a href="{{ route('admin.posts') }}" class="nav-link active" style="color: #000;">Posts</a>
+            <a href="{{ route('admin.user') }}" style="color: #000" class="nav-link">Users</a>
         </div>
     </nav>
 
@@ -13,10 +13,8 @@
             <tr class="table-title">
                 <th scope="col" style="padding-bottom:13px;">#</th>
                 <th scope="col">
-                    <form class="form-inline my-2 my-lg-0" method="post" action="{{ route('posts.search') }}">
-                        @csrf
-                        <input type="hidden" name="redirect" value="admin.index">
-                        <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="searchTerm"
+                    <form class="form-inline my-2 my-lg-0" method="get" action="{{ route('admin.posts') }}">
+                        <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="s"
                             value="{{ isset($term) ? $term : '' }}" type="search" placeholder="Search Posts"
                             aria-label="Search">
                     </form>

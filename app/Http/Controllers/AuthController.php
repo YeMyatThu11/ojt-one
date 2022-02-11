@@ -156,7 +156,7 @@ class AuthController extends Controller
     public function rediectBasedOnRole()
     {
         if (Auth::check() && Auth()->user()->role == 1) {
-            return redirect()->route('admin.index');
+            return redirect()->route('admin.posts');
         } else {
             return redirect()->route('posts.index');
         }
