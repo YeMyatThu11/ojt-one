@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-header">Change Password </div>
                 <div class="card-body">
-                    {!! Form::open(['route' => ['user.updatePW', $user->id], 'method' => 'put']) !!}
+                    {{ Form::open(['route' => ['user.updatePW', $user->id], 'method' => 'put']) }}
                     <div class="row mb-3">
                         <label for="password" class="col-md-4 col-form-label text-md-end">Password</label>
 
@@ -39,7 +39,7 @@
                             </button>
                         </div>
                     </div>
-                    {!! Form::close() !!}
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

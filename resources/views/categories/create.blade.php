@@ -16,11 +16,11 @@
             {{ session('status') }}
         </div>
     @endif
-    {!! Form::open(['route' => 'categories.store']) !!}
+    {{ Form::open(['route' => 'categories.store']) }}
     @isset($redirect)
         {{ Form::hidden('redirect', $redirect) }}
     @endisset
     {{ Form::text('name', '', ['class' => 'form-control mb-3', 'placeholder' => 'Enter Name']) }}
     {{ Form::submit('Submit', ['class' => 'btn btn-secondary float-end px-5']) }}
-    {!! Form::close() !!}
+    {{ Form::close() }}
 @endsection

@@ -12,11 +12,11 @@
             <tr class="table-title">
                 <th scope="col" style="padding-bottom:13px;">#</th>
                 <th scope="col">
-                    {!! Form::open(['route' => 'admin.user', 'method' => 'get']) !!}
+                    {{ Form::open(['route' => 'admin.user', 'method' => 'get']) }}
                     <div class="form-inline my-2 my-lg-0">
                         {{ Form::search('s', isset($term) ? $term : '', ['class' => 'admin-search-bar form-control mr-sm-2','placeholder' => 'Search Users','aria-label' => 'Search']) }}
                     </div>
-                    {!! Form::close() !!}
+                    {{ Form::close() }}
                 </th>
                 <th scope="col" style="padding-bottom:13px;">Email</th>
                 <th scope="col" style="padding-bottom:13px;">Role</th>

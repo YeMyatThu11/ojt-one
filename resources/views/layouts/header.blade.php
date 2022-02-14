@@ -4,11 +4,11 @@
             {{ config('app.name', 'Laravel') }}
         </a>
         @if (Request::segment(1) == 'posts')
-            {!! Form::open(['route' => ['posts.index'], 'method' => 'get']) !!}
+            {{ Form::open(['route' => ['posts.index'], 'method' => 'get']) }}
             <div class="form-inline my-2 my-lg-0">
                 {{ Form::search('s', isset($term) ? $term : '', ['class' => 'form-control mr-sm-2','placeholder' => 'Search Posts','aria-label' => 'Search']) }}
             </div>
-            {!! Form::close() !!}
+            {{ Form::close() }}
         @endif
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -59,11 +59,11 @@
                             </a>
                             <a class="dropdown-item" href="{{ route('auth.logout') }}"
                                 onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                                                                    document.getElementById('logout-form').submit();">
+                                                                                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
-                            {!! Form::open(['route' => 'auth.logout', 'method' => 'post', 'id' => 'logout-form']) !!}
-                            {!! Form::close() !!}
+                            {{ Form::open(['route' => 'auth.logout', 'method' => 'post', 'id' => 'logout-form']) }}
+                            {{ Form::close() }}
                         </div>
                     </li>
 

@@ -13,11 +13,11 @@
             <tr class="table-title">
                 <th scope="col" style="padding-bottom:13px;">#</th>
                 <th scope="col">
-                    {!! Form::open(['route' => 'admin.posts', 'method' => 'get']) !!}
+                    {{ Form::open(['route' => 'admin.posts', 'method' => 'get']) }}
                     <div class="form-inline my-2 my-lg-0">
                         {{ Form::search('s', isset($term) ? $term : '', ['class' => 'admin-search-bar form-control mr-sm-2','placeholder' => 'Search Posts','aria-label' => 'Search']) }}
                     </div>
-                    {!! Form::close() !!}
+                    {{ Form::close() }}
                 </th>
                 <th scope="col" style="padding-bottom:13px;">Author</th>
                 <th scope="col" style="padding-bottom:13px;">Latest Update</th>
@@ -47,6 +47,4 @@
         </tbody>
     </table>
     {{ $posts->links('vendor.pagination.cust_pagination') }}
-
-
 @endsection

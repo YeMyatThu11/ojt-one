@@ -16,14 +16,13 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        {!! Form::open(['route' => 'auth.login']) !!}
+                        {{ Form::open(['route' => 'auth.login']) }}
                         <div>
                             <div class="row mb-3">
                                 <label for="email"
                                     class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    {{ Form::email('email', old('email'), ['class' => 'form-control' . ($errors->has('email') ? 'is-invalid' : ''),'id' => 'email','required' => 'required','auto-complete' => 'email']) }}
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -38,9 +37,7 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
+                                    {{ Form::password('password', ['class' => 'form-control' . ($errors->has('password') ? 'is-invalid' : ''),'id' => 'password','required' => 'required','auto-complete' => 'current-password']) }}
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -73,10 +70,7 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Login') }}
-                                    </button>
-
+                                    {{ Form::submit('Login', ['class' => 'btn btn-primary']) }}
                                     @if (Route::has('password.request'))
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
@@ -85,7 +79,7 @@
                                 </div>
                             </div>
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>

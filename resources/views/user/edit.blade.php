@@ -15,31 +15,26 @@
             <div class="card">
                 <div class="card-header">Profile Update</div>
                 <div class="card-body">
-                    {!! Form::open(['route' => ['user.update', $user->id], 'method' => 'put']) !!}
+                    {{ Form::open(['route' => ['user.update', $user->id], 'method' => 'put']) }}
                     <div class="row mb-3">
                         <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
 
                         <div class="col-md-6">
-                            <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}"
-                                required autofocus>
+                            {{ Form::text('name', $user->name, ['class' => 'form-control','placeholder' => 'Enter Title','required' => 'required']) }}
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
-
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control " name="email" value="{{ $user->email }}"
-                                required autofocus>
+                            {{ Form::email('email', $user->email, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
                         </div>
                     </div>
                     <div class="row mb-0">
                         <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-secondary">
-                                Change
-                            </button>
+                            {{ Form::submit('Change', ['class' => 'btn btn-secondary']) }}
                         </div>
                     </div>
-                    {!! Form::close() !!}
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

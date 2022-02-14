@@ -13,14 +13,12 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        {!! Form::open(['route' => 'auth.forgot-password']) !!}
+                        {{ Form::open(['route' => 'auth.forgot-password']) }}
                         <div class="row mb-3">
-                            <label for="email"
-                                class="col-md-4 col-form-label text-md-end">{{ __('E-Mail Address') }}</label>
+                            {{ Form::label('email', 'Email', ['class' => 'col-md-4 col-form-label text-md-end', 'for' => 'password']) }}
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                {{ Form::email('email', '', ['class' => 'form-control' . ($errors->has('email') ? 'is-invalid' : ''),'id' => 'email','required' => 'required','auto-complete' => 'email']) }}
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -32,12 +30,10 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
+                                {{ Form::submit('Send Password Reset Link', ['class' => 'btn btn-primary']) }}
                             </div>
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>

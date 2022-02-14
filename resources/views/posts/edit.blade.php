@@ -11,7 +11,7 @@
             </ul>
         </div>
     @endif
-    {!! Form::open(['route' => ['posts.update', $post->id], 'method' => 'put']) !!}
+    {{ Form::open(['route' => ['posts.update', $post->id], 'method' => 'put']) }}
     <div>
         {{ Form::text('title', $post->title, ['class' => 'form-control mb-3', 'placeholder' => 'Enter Title']) }}
         {{ Form::textarea('content', $post->content, ['class' => 'form-control mb-3','rows' => 4,'placeholder' => 'Content']) }}
@@ -26,5 +26,5 @@
         </a>
         {{ Form::submit('Submit', ['class' => 'btn btn-primary float-end px-5']) }}
     </div>
-    {!! Form::close() !!}
+    {{ Form::close() }}
 @endsection

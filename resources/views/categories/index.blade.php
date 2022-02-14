@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <div class="d-flex justify-content-between flex-wrap category-index">
         @foreach ($categories as $category)
             <div class="catg-container bg-secondary d-flex">
@@ -10,13 +9,13 @@
                         <i class="fas fa-edit"></i></a>
                     <a class="catg-detail" href="{{ route('categories.show', $category->id) }}">
                         <i class="fas fa-info-circle"></i></a>
-                    {!! Form::open(['route' => ['categories.destroy', $category->id]]) !!}
+                    {{ Form::open(['route' => ['categories.destroy', $category->id]]) }}
                     <div class="catg-del-form">
                         <button class="catg-del-btn" type="submit">
                             <i class="fas fa-trash catg-del-icon"></i>
                         </button>
                     </div>
-                    {!! Form::close() !!}
+                    {{ Form::close() }}
                 </div>
             </div>
         @endforeach

@@ -11,8 +11,8 @@
             </ul>
         </div>
     @endif
-    {!! Form::open(['route' => ['categories.update', $category->id], 'method' => 'put']) !!}
+    {{ Form::open(['route' => ['categories.update', $category->id], 'method' => 'put']) }}
     {{ Form::text('name', $category->name, ['class' => 'form-control mb-3', 'placeholder' => 'Enter Name']) }}
     {{ Form::submit('Submit', ['class' => 'btn btn-secondary float-end px-5']) }}
-    {!! Form::close() !!}
+    {{ Form::close() }}
 @endsection

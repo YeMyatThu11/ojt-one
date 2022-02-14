@@ -9,15 +9,13 @@
 
                     <div class="card-body">
                         {{ __('Please confirm your password before continuing.') }}
-                        {!! Form::open(['route' => 'password.confirm']) !!}
+                        {{ Form::open(['route' => 'password.confirm']) }}
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            {{ Form::label('password', 'Password', ['class' => 'col-md-4 col-form-label text-md-end', 'for' => 'password']) }}
+
 
                             <div class="col-md-6">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password" required
-                                    autocomplete="current-password">
-
+                                {{ Form::password('password', '', ['class' => 'form-control' . ($errors->has('password') ? 'is-invalid' : ''),'id' => 'password','required' => 'required','auto-complete' => 'current-password']) }}
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -28,10 +26,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Confirm Password') }}
-                                </button>
-
+                                {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
@@ -39,7 +34,7 @@
                                 @endif
                             </div>
                         </div>
-                        {!! Form::close() !!}
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>
