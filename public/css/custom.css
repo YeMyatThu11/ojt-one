@@ -202,3 +202,8 @@ a {
     width: 280px !important;
     margin: auto;
 }
+
+.admin-search-bar {
+    width: 300px !important;
+    background: #fff;
+}

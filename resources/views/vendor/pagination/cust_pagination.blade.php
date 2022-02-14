@@ -21,35 +21,37 @@
 
         </ul>
     </div>
-    <style>
-        .pager {
-            display: flex;
-            width: 100%;
-            justify-content: center;
-            list-style-type: none;
-            margin-top: 30px;
-            position: sticky;
-            bottom: 0;
-        }
+    @section('style')
+        <style>
+            .pager {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                list-style-type: none;
+                margin-top: 30px;
+                position: sticky;
+                bottom: 0;
+            }
 
 
 
-        .pagn-link {
-            text-decoration: none;
-            color: #6c757d;
-            padding: 10px 20px;
-        }
+            .pagn-link {
+                text-decoration: none;
+                color: #6c757d;
+                padding: 10px 20px;
+            }
 
-        .pagn-link:hover {
-            color: #6c757d;
-        }
+            .pagn-link:hover {
+                color: #6c757d;
+            }
 
-        .pgn-active {
-            color: #fff;
-            background-color: #6c757d;
-            border-radius: 10px;
-            padding: 10px 20px;
-        }
+            .pgn-active {
+                color: #fff;
+                background-color: #6c757d;
+                border-radius: 10px;
+                padding: 10px 20px;
+            }
 
-    </style>
+        </style>
+    @endsection
 @endif

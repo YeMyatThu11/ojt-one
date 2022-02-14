@@ -46,9 +46,11 @@
         {{ $posts->links('vendor.pagination.cust_pagination') }}
     @endif
 
+
+@endsection
+@section('script')
     <script>
         function clickHandler(id) {
-            console.log('aa', id);
             let url = "{{ route('posts.show', ':id') }}";
             url = url.replace(':id', id);
             document.location.href = url;

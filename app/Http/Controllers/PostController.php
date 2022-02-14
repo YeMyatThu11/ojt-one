@@ -90,8 +90,7 @@ class PostController extends Controller
 
     public function searchPosts($term)
     {
-        $term = $term;
-        $posts = $this->postService->searchPosts($term, '12');
+        $posts = $this->postService->searchPosts($term, Auth::id())->appends(['s' => $term]);
         return view('posts.index', compact('posts', 'term'));
     }
 }

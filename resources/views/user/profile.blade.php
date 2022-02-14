@@ -85,73 +85,76 @@
         </div>
     </div>
 @endsection
-<script>
-    function clickHandler(id) {
-        console.log('aa', id);
-        let url = "{{ route('posts.show', ':id') }}";
-        url = url.replace(':id', id);
-        document.location.href = url;
-    }
-</script>
-<style>
-    .profile-container {
-        margin: 0 auto;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.651);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 12px;
-    }
+@section('script')
+    <script>
+        function clickHandler(id) {
+            let url = "{{ route('posts.show', ':id') }}";
+            url = url.replace(':id', id);
+            document.location.href = url;
+        }
+    </script>
+@endsection
+@section('style')
+    <style>
+        .profile-container {
+            margin: 0 auto;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.651);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 12px;
+        }
 
-    .user-logo-circle {
-        font-size: 30px;
-        color: #fff;
-        padding-bottom: 13px;
-    }
+        .user-logo-circle {
+            font-size: 30px;
+            color: #fff;
+            padding-bottom: 13px;
+        }
 
-    .user-name,
-    .user-mail,
-    .post-count,
-    .post-label,
-    .date-label,
-    .join-date-no {
-        text-align: center;
-        margin-bottom: 0;
-    }
+        .user-name,
+        .user-mail,
+        .post-count,
+        .post-label,
+        .date-label,
+        .join-date-no {
+            text-align: center;
+            margin-bottom: 0;
+        }
 
-    .txt-grey {
-        color: #808080;
-    }
+        .txt-grey {
+            color: #808080;
+        }
 
-    .total-posts {
-        padding: 5px 10px 5px 0;
-        border-right: 1px solid #808080;
-    }
+        .total-posts {
+            padding: 5px 10px 5px 0;
+            border-right: 1px solid #808080;
+        }
 
-    .join-date {
-        padding: 5px 0px 5px 10;
-    }
+        .join-date {
+            padding: 5px 0px 5px 10px;
+        }
 
-    .change-btn {
-        background: rgba(0, 0, 0, 0.651);
-        padding: 10px;
-        border-radius: 10px;
-        color: #fff;
-        margin: 20px 0;
-    }
+        .change-btn {
+            background: rgba(0, 0, 0, 0.651);
+            padding: 10px;
+            border-radius: 10px;
+            color: #fff;
+            margin: 20px 0;
+        }
 
-    .href-txt {
-        display: block;
-        color: #fff;
-        text-decoration: none;
-        text-align: center;
-    }
+        .href-txt {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+        }
 
-    .href-txt:hover {
-        color: #fff
-    }
+        .href-txt:hover {
+            color: #fff
+        }
 
-</style>
+    </style>
+@endsection

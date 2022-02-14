@@ -15,9 +15,7 @@
                 <th scope="col">
                     {!! Form::open(['route' => 'admin.posts', 'method' => 'get']) !!}
                     <div class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" style="width: 300px;background:#fff" name="s"
-                            value="{{ isset($term) ? $term : '' }}" type="search" placeholder="Search Posts"
-                            aria-label="Search">
+                        {{ Form::search('s', isset($term) ? $term : '', ['class' => 'admin-search-bar form-control mr-sm-2','placeholder' => 'Search Posts','aria-label' => 'Search']) }}
                     </div>
                     {!! Form::close() !!}
                 </th>

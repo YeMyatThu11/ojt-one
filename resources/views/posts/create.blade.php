@@ -11,27 +11,20 @@
             </ul>
         </div>
     @endif
-    {!! Form::open(['route' => 'posts.store']) !!}
+    {{ Form::open(['route' => 'posts.store']) }}
     <div>
-        <input type="text" name="title" class="form-control mb-3" placeholder="Enter Title">
-        <textarea type="text" name="content" rows="4" class="form-control mb-3" placeholder="Content"></textarea>
-        <select class="form-select form-select-sm my-3 pb-select-box" name="public_post"
-            aria-label=".form-select-sm example">
-            <option value=1>Public </option>
-            <option value=0>Private</option>
-        </select>
-        <input type="hidden" name="author_id" class="form-control mb-3" value={{ Auth::id() }}>
-
+        {{ Form::text('title', '', ['class' => 'form-control mb-3', 'placeholder' => 'Enter Title']) }}
+        {{ Form::textarea('content', '', ['class' => 'form-control mb-3', 'rows' => 4, 'placeholder' => 'Content']) }}
+        {{ Form::select('public_post', ['1' => 'Public', '0' => 'Private'], '1', ['class' => 'form-select form-select-sm my-3 pb-select-box']) }}
+        {{ Form::hidden('author_id', Auth::id(), ['class' => 'form-control mb-3']) }}
         @foreach ($categories as $tag)
-            <input class="form-check-input" type="checkbox" value="{{ $tag->id }}" name="category_list[]">
-            <label class="form-check-label">
-                {{ $tag->name }}
-            </label>
+            {{ Form::checkbox('category_list[]', $tag->id, null, ['class' => 'form-check-input']) }}
+            {{ Form::label($tag->name, $tag->name, null, ['class' => 'form-check-label']) }}
         @endforeach
         <a href="{{ route('categories.create', ['redirect' => 'posts/create']) }}">
             <i class="fas fa-plus add-category-icon"></i>
         </a>
-        <button class="btn btn-secondary float-end px-5">Submit</button>
+        {{ Form::submit('Submit', ['class' => 'btn btn-secondary float-end px-5']) }}
     </div>
-    {!! Form::close() !!}
+    {{ Form::close() }}
 @endsection

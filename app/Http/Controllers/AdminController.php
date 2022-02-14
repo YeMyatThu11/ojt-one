@@ -21,7 +21,7 @@ class AdminController extends Controller
         if ($request->get('s')) {
             return $this->searchPosts($request->get('s'));
         }
-        $posts = $this->postService->getAllPostsForAdmin(20);
+        $posts = $this->postService->getAllPostsForAdmin();
         return view('admin.posts', compact('posts'));
     }
 
@@ -36,15 +36,13 @@ class AdminController extends Controller
 
     public function searchPosts($term)
     {
-        $term = $term;
-        $posts = $this->postService->searchPosts($term, '15');
+        $posts = $this->postService->searchPostsAdmin($term)->appends(['s' => $term]);
         return view('admin.posts', compact('posts', 'term'));
     }
 
     public function searchUsers($term)
     {
-        $term = $term;
-        $users = $this->userService->searchUsers($term);
+        $users = $this->userService->searchUsers($term)->appends(['s' => $term]);
         return view('admin.user', compact('users', 'term'));
     }
 }

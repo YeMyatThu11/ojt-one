@@ -32,13 +32,17 @@ class PostService implements PostServiceInterface
         return $this->postDao->deletePost($post);
     }
 
-    public function getAllPostsForAdmin($paginateLimit)
+    public function getAllPostsForAdmin()
     {
-        return $this->postDao->getAllPostsForAdmin($paginateLimit);
+        return $this->postDao->getAllPostsForAdmin();
     }
-    public function searchPosts($term, $paginateLimit = 12)
+    public function searchPosts($term, $authorId = null)
     {
-        return $this->postDao->searchPosts($term, $paginateLimit);
+        return $this->postDao->searchPosts($term, $authorId);
+    }
+    public function searchPostsAdmin($term)
+    {
+        return $this->postDao->searchPostsAdmin($term);
     }
 
 }

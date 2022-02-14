@@ -17,12 +17,10 @@
         </div>
     @endif
     {!! Form::open(['route' => 'categories.store']) !!}
-    <div>
-        @isset($redirect)
-            <input type="hidden" name="redirect" value="{{ $redirect }}">
-        @endisset
-        <input type="text" name="name" class="form-control mb-3" placeholder="Enter Name">
-        <button class="btn btn-primary float-end px-5">Submit</button>
-    </div>
+    @isset($redirect)
+        {{ Form::hidden('redirect', $redirect) }}
+    @endisset
+    {{ Form::text('name', '', ['class' => 'form-control mb-3', 'placeholder' => 'Enter Name']) }}
+    {{ Form::submit('Submit', ['class' => 'btn btn-secondary float-end px-5']) }}
     {!! Form::close() !!}
 @endsection

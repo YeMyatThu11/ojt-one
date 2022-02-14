@@ -13,26 +13,18 @@
     @endif
     {!! Form::open(['route' => ['posts.update', $post->id], 'method' => 'put']) !!}
     <div>
-        <input type="text" name="title" class="form-control mb-3" placeholder="Enter Title" value="{{ $post->title }}">
-        <textarea type="text" name="content" rows="4" class="form-control mb-3"
-            placeholder="Content">{{ $post->content }}</textarea>
-        <select class="form-select form-select-sm my-3 pb-select-box" name="public_post"
-            aria-label=".form-select-sm example">
-            <option value=1 {{ $post->public_post == 1 ? 'selected' : '' }}>Public </option>
-            <option value=0 {{ $post->public_post == 0 ? 'selected' : '' }}>Private</option>
-        </select>
-
+        {{ Form::text('title', $post->title, ['class' => 'form-control mb-3', 'placeholder' => 'Enter Title']) }}
+        {{ Form::textarea('content', $post->content, ['class' => 'form-control mb-3','rows' => 4,'placeholder' => 'Content']) }}
+        {{ Form::select('public_post', ['1' => 'Public', '0' => 'Private'], $post->public_post == 1 ? '1' : '0', ['class' => 'form-select form-select-sm my-3 pb-select-box']) }}
+        {{ Form::hidden('author_id', Auth::id(), ['class' => 'form-control mb-3']) }}
         @foreach ($allCatg as $tag)
-            <input class="form-check-input" type="checkbox" @if (in_array($tag->id, $selectedCatg)) checked @endif value="{{ $tag->id }}"
-                name="category_list[]">
-            <label class="form-check-label">
-                {{ $tag->name }}
-            </label>
+            {{ Form::checkbox('category_list[]', $tag->id, in_array($tag->id, $selectedCatg) ? true : false, ['class' => 'form-check-input']) }}
+            {{ Form::label($tag->name, $tag->name, null, ['class' => 'form-check-label']) }}
         @endforeach
         <a href="{{ route('categories.create', ['redirect' => "posts/$post->id/edit"]) }}">
             <i class="fas fa-plus add-category-icon"></i>
         </a>
-        <button class="btn btn-primary float-end px-5">Submit</button>
+        {{ Form::submit('Submit', ['class' => 'btn btn-primary float-end px-5']) }}
     </div>
     {!! Form::close() !!}
 @endsection

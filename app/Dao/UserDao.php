@@ -66,7 +66,6 @@ class UserDao implements UserDaoInterface
     public function searchUsers($term)
     {
         return User::where('name', 'like', '%' . $term . '%')
-            ->paginate(20, ['*'], 'user_page')
-            ->appends(['s' => $term]);
+            ->paginate(20, ['*'], 'user_page');
     }
 }
