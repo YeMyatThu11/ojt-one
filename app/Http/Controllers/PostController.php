@@ -48,7 +48,6 @@ class PostController extends Controller
             'author_id' => 'required|string',
         ]);
         $category_list = $request->input('category_list');
-        dd($category_list);
         $this->postService->createPost($data, $category_list);
         return redirect()->route('posts.index');
     }

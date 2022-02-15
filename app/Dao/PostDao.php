@@ -21,7 +21,8 @@ class PostDao implements PostDaoInterface
     public function createPost($data, $category_list = null)
     {
         $post = Post::create($data);
-        return $post->categories()->attach($category_list);
+        $post->categories()->attach($category_list);
+        return $post;
     }
 
     public function updatePost($data, $category_list = null, $post)

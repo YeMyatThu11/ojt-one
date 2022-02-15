@@ -57,16 +57,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->json()->all();
+        $req = $request->json()->all();
         $rules = [
             'title' => 'required|string',
             'content' => 'required|string',
             'public_post' => 'required|boolean',
             'author_id' => 'required|string',
+            'category_list' => 'array',
         ];
-        $validator = Validator::make($data, $rules);
+        $validator = Validator::make($req, $rules);
+        $data = $request->except('category_list');
+        $category_list = $request->category_list;
         if ($validator->passes()) {
-            return response()->json($data);
+            $post = $this->postService->createPost($data, $category_list);
+            return response()->json(['messsage' => 'created successfully', 'data' => $post]);
         } else {
             return response()->json([
                 'messages' => 'fail to create post',
