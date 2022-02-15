@@ -17,6 +17,11 @@ class PostService implements PostServiceInterface
         return $this->postDao->getPosts($authorId);
     }
 
+    public function getPostByid($id)
+    {
+        return $this->postDao->getPostByid($id);
+    }
+
     public function createPost($data, $category_list = null)
     {
         return $this->postDao->createPost($data, $category_list);

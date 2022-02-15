@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\LoginController;
+use App\Http\Controllers\api\PostController;
+use App\Http\Controllers\api\RegisterController;
 use App\Http\Controllers\api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,12 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware('auth:api')->group(function () {
-    Route::get('/users', [UserController::class, 'getAllUser']);
+    Route::apiResource('/users', UserController::class);
+    Route::prefix('posts')->name('posts.')->group(function () {
+        Route::get('/', [PostController::class, 'index'])->name('index');
+        Route::get('{post}', [PostController::class, 'show'])->name('show');
+        Route::post('/', [PostController::class, 'store'])->name('store');
+    });
 });

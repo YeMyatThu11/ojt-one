@@ -4,6 +4,7 @@ namespace App\Contracts\Services;
 interface PostServiceInterface
 {
     public function getPosts($authorId = null);
+    public function getPostByid($id);
     public function getAllPostsForAdmin();
     public function createPost($data, $category_list = null);
     public function updatePost($data, $category_list = null, $post);

@@ -14,7 +14,10 @@ class PostDao implements PostDaoInterface
         }
         return $posts = $posts->paginate(config('constant.pagination.homePagination'));
     }
-
+    public function getPostByid($id)
+    {
+        return Post::find($id);
+    }
     public function createPost($data, $category_list = null)
     {
         $post = Post::create($data);
