@@ -107,7 +107,6 @@ class PostController extends Controller
             ], 422);
         }
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -119,4 +118,11 @@ class PostController extends Controller
         $this->postService->deletePost($post);
         return response()->json(['messages' => 'post deleted successfully'], 200);
     }
+
+    public function searchPosts($term)
+    {
+        $posts = $this->postService->searchPosts($term, Auth::id())->appends(['s' => $term]);
+        return PostResource::collection($posts);
+    }
+
 }

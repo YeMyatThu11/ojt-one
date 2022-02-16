@@ -7,4 +7,5 @@ interface CategoryDaoInterface
     public function createCategory($data);
     public function updateCategory($data, $category);
     public function deleteCategory($category);
+    public function getCategoryById($id);
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\PostResource;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
@@ -17,8 +19,9 @@ class CategoryResource extends JsonResource
         return [
             'id' => (string) $this->id,
             'name' => $this->name,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'posts' => $this->when($request->routeIs('categories.show'), PostResource::collection(
+                $this->posts()->paginate(config('constant.pagination.homePagination'))
+            )),
         ];
     }
 }

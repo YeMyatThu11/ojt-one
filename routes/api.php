@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'register']);
-Route::get('/posts', [PostController::class, 'index'])->name('index');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 
 Route::middleware('auth:api')->group(function () {
     Route::prefix('/user')->name('user.')->group(function () {

@@ -17,6 +17,11 @@ class CategoryService implements CategoryServiceInterface
         return $this->categoryDao->getAllCategories();
     }
 
+    public function getCategoryById($id)
+    {
+        return $this->categoryDao->getCategoryById($id);
+    }
+
     public function createCategory($data)
     {
         return $this->categoryDao->createCategory($data);

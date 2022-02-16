@@ -21,11 +21,13 @@ class PostResource extends JsonResource
             'title' => $this->title,
             'content' => $this->content,
             'public_post' => $this->public_post,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
             'author_id' => $this->author_id,
-            'categories' => CategoryResource::collection($this->categories),
-            'author' => new UserResource($this->user),
+            $this->mergeWhen(
+                $request->routeIs('posts.*'), [
+                    'categories' => CategoryResource::collection($this->categories),
+                    'author' => new UserResource($this->user),
+                ]
+            ),
         ];
     }
 }

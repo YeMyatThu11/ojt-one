@@ -10,7 +10,10 @@ class CategoryDao implements CategoryDaoInterface
     {
         return Category::all();
     }
-
+    public function getCategoryById($id)
+    {
+        return Category::find($id);
+    }
     public function createCategory($data)
     {
         return Category::create($data);

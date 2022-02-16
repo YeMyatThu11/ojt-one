@@ -23,7 +23,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if ($request->get('s')) {
             return $this->searchUsers($request->get('s'));
@@ -80,5 +80,11 @@ class UserController extends Controller
     {
         $this->userService->deleteUser($user);
         return response()->json(['messages' => 'user deleted successfully'], 200);
+    }
+
+    public function searchUsers($term)
+    {
+        $users = $this->userService->searchUsers($term)->appends(['s' => $term]);
+        return UserResource::collection($users);
     }
 }
