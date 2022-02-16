@@ -5,7 +5,10 @@ namespace App\Http\Controllers\api;
 use App\Contracts\Services\UserServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -22,29 +25,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        if ($request->get('s')) {
+            return $this->searchUsers($request->get('s'));
+        }
         $users = $this->userService->getAllUsers();
         return UserResource::collection($users);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -53,21 +38,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = $this->userService->getUserById($id);
         return new UserResource($user);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -77,9 +50,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+
+        $data = $request->json()->all();
+        $rules = [
+            'name' => 'required|string',
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+        ];
+        $validator = Validator::make($data, $rules);
+        if ($validator->passes()) {
+            $result = $this->userService->updateUserProfile($data, $user);
+            return response()->json(['messsage' => 'user updated successfully', 'data' => $result], 200);
+        } else {
+            return response()->json([
+                'messages' => 'fail to update user',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
     }
 
     /**
@@ -88,8 +76,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $this->userService->deleteUser($user);
+        return response()->json(['messages' => 'user deleted successfully'], 200);
     }
 }

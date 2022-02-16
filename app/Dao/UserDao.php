@@ -10,12 +10,13 @@ class UserDao implements UserDaoInterface
 {
     public function getAllUsers()
     {
-        return User::paginate(30);
+        return User::paginate(config('constant.pagination.adminPagination'));
     }
 
     public function updateUserProfile($data, $user)
     {
-        return $user->update($data);
+        $user->update($data);
+        return $user;
     }
 
     public function resetPassword($hash, $user)
@@ -66,6 +67,6 @@ class UserDao implements UserDaoInterface
     public function searchUsers($term)
     {
         return User::where('name', 'like', '%' . $term . '%')
-            ->paginate(20, ['*'], 'user_page');
+            ->paginate(config('constant.pagination.adminPagination'), ['*'], 'user_page');
     }
 }

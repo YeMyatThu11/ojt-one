@@ -28,7 +28,8 @@ class PostDao implements PostDaoInterface
     public function updatePost($data, $category_list = null, $post)
     {
         $post->update($data);
-        return $post->categories()->sync($category_list);
+        $post->categories()->sync($category_list);
+        return $post;
     }
 
     public function deletePost($post)
@@ -43,24 +44,26 @@ class PostDao implements PostDaoInterface
 
     public function searchPosts($term, $authorId = null)
     {
-        $posts = Post::where([['title', 'LIKE', '%' . $term . '%'], ['public_post', '=', 1]])
-            ->orWhere(function ($q) use ($term, $authorId) {
-                $q->where([['content', 'LIKE', '%' . $term . '%'], ['public_post', '=', 1]]);
-            })
-            ->orWhereHas('user', function ($q) use ($term) {
-                return $q->where([['name', 'LIKE', '%' . $term . '%'], ['public_post', '=', 1]]);
-            })
-            ->orWhereHas('categories', function ($q) use ($term) {
-                return $q->where([['name', 'LIKE', '%' . $term . '%'], ['public_post', '=', 1]]);
-            });
+        $posts = Post::where(function ($q) use ($term) {
+            $q->orWhere('title', 'LIKE', '%' . $term . '%')
+                ->orWhere('content', 'LIKE', '%' . $term . '%')
+                ->orWhereHas('user', function ($q) use ($term) {
+                    return $q->where('name', 'LIKE', '%' . $term . '%');
+                })
+                ->orWhereHas('categories', function ($q) use ($term) {
+                    return $q->where('name', 'LIKE', '%' . $term . '%');
+                });
+        });
         if ($authorId) {
-            $posts->orwhere(function ($q) use ($term, $authorId) {
+            $posts = $posts->where(function ($q) use ($term, $authorId) {
                 $q->where([['title', 'LIKE', '%' . $term . '%'], ['author_id', '=', $authorId]])
-                    ->orWhere(function ($q) use ($term, $authorId) {
-                        $q->where([['content', 'LIKE', '%' . $term . '%'], ['author_id', '=', $authorId]]);
-                    });
+                    ->orWhere([['content', 'LIKE', '%' . $term . '%'], ['author_id', '=', $authorId]])
+                    ->orWhere('public_post', 1);
             });
+        } else {
+            $posts = $posts->where('public_post', 1);
         }
+
         return $posts->paginate(config('constant.pagination.homePagination'), ['*'], 'pageno');
     }
 

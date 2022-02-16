@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Contracts\Services\CategoryServiceInterface;
 use App\Contracts\Services\PostServiceInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -14,12 +14,10 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
     private $postService;
-    private $categoryService;
 
-    public function __construct(PostServiceInterface $postService, CategoryServiceInterface $categoryService)
+    public function __construct(PostServiceInterface $postService)
     {
         $this->postService = $postService;
-        $this->categoryService = $categoryService;
     }
     /**
      * Display a listing of the resource.
@@ -37,16 +35,6 @@ class PostController extends Controller
             $posts = $this->postService->getPosts();
         }
         return PostResource::collection($posts);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -69,38 +57,24 @@ class PostController extends Controller
         $data = $request->except('category_list');
         $category_list = $request->category_list;
         if ($validator->passes()) {
-            $post = $this->postService->createPost($data, $category_list);
-            return response()->json(['messsage' => 'created successfully', 'data' => $post]);
+            $result = $this->postService->createPost($data, $category_list);
+            return response()->json(['messsage' => 'created successfully', 'data' => $result], 200);
         } else {
             return response()->json([
                 'messages' => 'fail to create post',
                 'errors' => $validator->errors(),
             ], 422);
         }
-
     }
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $user = $this->postService->getPostByid($id);
-        return new PostResource($user);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new PostResource($post);
     }
 
     /**
@@ -110,9 +84,28 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $req = $request->json()->all();
+        $rules = [
+            'title' => 'string',
+            'content' => 'string',
+            'public_post' => 'boolean',
+            'author_id' => 'string',
+            'category_list' => 'required|array',
+        ];
+        $validator = Validator::make($req, $rules);
+        $data = $request->except('category_list');
+        $category_list = $request->category_list;
+        if ($validator->passes()) {
+            $result = $this->postService->updatePost($data, $category_list, $post);
+            return response()->json(['messsage' => 'posts updated successfully', 'data' => $result], 200);
+        } else {
+            return response()->json([
+                'messages' => 'fail to update post',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
     }
 
     /**
@@ -121,8 +114,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $this->postService->deletePost($post);
+        return response()->json(['messages' => 'post deleted successfully'], 200);
     }
 }
