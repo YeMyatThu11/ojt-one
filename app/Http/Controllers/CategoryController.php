@@ -37,7 +37,7 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        $posts = $category->posts()->orderBy('created_at', 'desc')->paginate(12);
+        $posts = $category->posts()->orderBy('created_at', 'desc')->paginate(config('constant.pagination.adminPagination'));
         return view('categories.show', compact('category', 'posts'));
     }
 
