@@ -23,9 +23,10 @@ class PostResource extends JsonResource
             'public_post' => $this->public_post,
             'author_id' => $this->author_id,
             $this->mergeWhen(
-                $request->routeIs('posts.*'), [
+                ($request->routeIs('posts.*') || $request->routeIs('admin.*')), [
                     'categories' => CategoryResource::collection($this->categories),
                     'author' => new UserResource($this->user),
+                    'updatedAt' => $this->updated_at,
                 ]
             ),
         ];

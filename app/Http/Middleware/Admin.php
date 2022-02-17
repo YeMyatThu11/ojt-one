@@ -20,7 +20,7 @@ class Admin
         if (Auth::check() && Auth::user()->role == 1) {
             return $next($request);
         } else {
-            return redirect()->route('login');
+            return $request->is('api/*') ? redirect()->route('access_denied') : redirect()->route('posts.index');
         }
     }
 }

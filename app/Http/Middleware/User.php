@@ -23,7 +23,7 @@ class User
         if (Auth::check() && ($routedUserId == $currentUserid || $currentUserRole == 1)) {
             return $next($request);
         } else {
-            return redirect()->route('posts.index');
+            return $request->is('api/*') ? redirect()->route('access_denied') : redirect()->route('posts.index');
         }
     }
 }
